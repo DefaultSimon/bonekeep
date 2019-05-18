@@ -11,6 +11,9 @@ const productionPlugins = [
   require('@babel/plugin-transform-react-constant-elements'),
   require('@babel/plugin-transform-react-inline-elements'),
   require('babel-plugin-transform-react-remove-prop-types')
+
+  // https://github.com/gaearon/react-hot-loader/issues/1227
+  // require('react-hot-loader/babel')
 ];
 
 module.exports = api => {
@@ -24,7 +27,8 @@ module.exports = api => {
         require('@babel/preset-env'),
         {
           targets: { electron: require('electron/package.json').version },
-          useBuiltIns: 'usage'
+          useBuiltIns: 'usage',
+          corejs: '2'
         }
       ],
       require('@babel/preset-flow'),
