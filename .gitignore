@@ -49,3 +49,10 @@ main.js.map
 
 .idea
 npm-debug.log.*
+
+## Other
+# NodeJS
+node_modules
+
+# Other
+names.txt

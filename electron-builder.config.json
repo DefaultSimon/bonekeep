@@ -1,0 +1,27 @@
+{
+  "appId": "org.defaultsimon.bonekeep",
+  "productName": "Bonekeep",
+  "copyright": "Copyright © 2019-2019 Simon Goričar",
+
+  "directories": {
+    "buildResources": "resources",
+    "output": "release"
+  },
+  "files": [
+    "app/dist/",
+    "app/app.html",
+    "app/main.prod.js",
+    "app/main.prod.js.map",
+    "package.json"
+  ],
+
+  "win": {
+    "target": ["nsis", "portable"]
+  },
+  "linux": {
+    "target": ["deb", "rpm", "snap", "AppImage", "7z"],
+    "category": "Game"
+  },
+
+  "publish": null
+}
