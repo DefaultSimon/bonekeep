@@ -1,8 +1,12 @@
+@import '../styles/vars';
+
 .container {
   position: absolute;
   top: 30%;
   left: 10px;
   text-align: center;
+
+  background-color: $primary;
 }
 
 .container h2 {

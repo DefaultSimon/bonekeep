@@ -13,7 +13,7 @@
 import { app, BrowserWindow } from 'electron';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
-import MenuBuilder from './menu';
+// import MenuBuilder from './menu';
 
 /*
 export default class AppUpdater {
@@ -40,12 +40,17 @@ if (
 }
 
 const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
+  const {
+    default: installer,
+    REACT_DEVELOPER_TOOLS,
+    REDUX_DEVTOOLS
+  } = require('electron-devtools-installer');
+
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+  const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
 
   return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
+    extensions.map(ext => installer(ext, forceDownload))
   ).catch(console.log);
 };
 
@@ -72,14 +77,15 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
-  // @TODO: Use 'ready-to-show' event
-  //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
-  mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.once('ready-to-show', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
@@ -95,10 +101,10 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
-  //new AppUpdater();
+  // new AppUpdater();
 });
