@@ -6,6 +6,10 @@ import { createStore } from 'redux';
 import rootReducer from './reducers/root';
 
 import Root from './containers/Root';
+
+// Import Semantic UI
+import './semanticui/semantic.less';
+// Import custom stylesheets
 import './app.global.scss';
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;

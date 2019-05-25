@@ -3,5 +3,6 @@
   "rules": {
     "declaration-empty-line-before": null,
     "at-rule-no-unknown": null
-  }
+  },
+  "ignoreFiles": ["app/semanticui/**"]
 }
