@@ -11,12 +11,6 @@
     "react/no-access-state-in-setstate": null,
     "jsx-a11y/click-events-have-key-events": null,
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
-    "no-param-reassign": "off",
-    "no-shadow": [
-      "error",
-      {
-        "allow": ["D*"]
-      }
-    ]
+    "no-param-reassign": "off"
   }
 }
