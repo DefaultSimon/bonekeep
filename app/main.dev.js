@@ -11,6 +11,8 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import path from 'path';
+import glob from 'glob';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
 // import MenuBuilder from './menu';
@@ -107,4 +109,12 @@ app.on('ready', async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   // new AppUpdater();
+});
+
+/**
+ Import other main-process modules
+ */
+const files = glob.sync(path.join(__dirname, 'main-process/**/*.js'));
+files.forEach(file => {
+  require(file); // eslint-disable-line import/no-dynamic-require
 });

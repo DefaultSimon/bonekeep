@@ -3,6 +3,29 @@
  */
 
 // COLORS
-$primary: #b89c42;
+$color-primary: #d19c1d;
+$color-primary-light: lighten($color-primary, 13%);
+$color-primary-dark: darken($color-primary, 13%);
 
-// SIZES
+$color-secondary: #7d451b;
+$color-secondary-light: lighten($color-secondary, 13%);
+$color-secondary-dark: darken($color-secondary, 13%);
+
+// Other colors
+$color-white: #fff;
+$color-black: #212121;
+
+// FONTS
+// font faces are in app.global.scss
+
+$font-primary: Roboto, sans-serif;
+$font-secondary: 'Open Sans', sans-serif;
+
+// font-weight values for included fonts
+$font-primary-normal: 400;
+$font-primary-medium: 500;
+$font-primary-bold: 700;
+
+$font-secondary-normal: 400;
+$font-secondary-medium: 600;
+$font-secondary-bold: 700;
