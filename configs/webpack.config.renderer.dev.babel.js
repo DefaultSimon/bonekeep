@@ -80,15 +80,39 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
-      // SASS support - compile all other .scss files and pipe it to style.css
+      // Compile main.scss
       {
-        test: /\.(scss|sass)$/,
+        test: /main\.(scss|sass)$/,
         use: [
           {
             loader: 'style-loader'
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      },
+      // SASS support - compile all other .scss files and pipe it to style.css
+      {
+        test: /^((?!main).)*\.(scss|sass)/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
           },
           {
             loader: 'sass-loader'

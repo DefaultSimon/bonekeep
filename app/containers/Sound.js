@@ -14,10 +14,29 @@ import {
 
 import FontAwesomeIcon from '../components/FontAwesomeIcon';
 import ItemContainer from '../components/ItemContainer';
+import Card from '../components/Card';
 
 import SoundEdit from './SoundEdit';
 
 import { mapSound } from '../redux/connect/stateToPropsCommon';
+
+const ButtonGroup = ({ buttons }) => (
+  <Button.Group>
+    {buttons.map(element => {
+      const [iconName, onClick] = element;
+
+      return (
+        <Button onClick={onClick} key={iconName}>
+          <FontAwesomeIcon iconName={iconName} color="c-transparent-dark" />
+        </Button>
+      );
+    })}
+  </Button.Group>
+);
+ButtonGroup.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  buttons: PropTypes.any.isRequired
+};
 
 class Sound extends Component {
   constructor(props) {
@@ -82,32 +101,30 @@ class Sound extends Component {
     } = this.props;
 
     return (
-      <ItemContainer className="p-10 flex-c1 col" bgColor="primary-light">
-        <ItemContainer className="m-3">
-          <span className="text primary-bold">{name || '~'}</span>
-        </ItemContainer>
+      <Card>
+        <ItemContainer className="p-5 flex-c1 col">
+          <ItemContainer className="m-3">
+            <span className="text primary-bold">{name || '~'}</span>
+          </ItemContainer>
 
-        <ItemContainer className="m-3">
-          <Button.Group>
-            <Button onClick={this.toggleEditModal}>
-              <FontAwesomeIcon iconName="edit" color="c-transparent-dark" />
-            </Button>
-            <Button onClick={this.playerPlay}>
-              <FontAwesomeIcon iconName="play" color="c-transparent-dark" />
-            </Button>
-            <Button onClick={this.playerStop}>
-              <FontAwesomeIcon iconName="stop" color="c-transparent-dark" />
-            </Button>
-          </Button.Group>
-        </ItemContainer>
+          <ItemContainer className="m-3">
+            <ButtonGroup
+              buttons={[
+                ['edit', this.toggleEditModal],
+                ['play', this.playerPlay],
+                ['stop', this.playerStop]
+              ]}
+            />
+          </ItemContainer>
 
-        <SoundEdit
-          soundId={soundId}
-          open={isEditing}
-          onClose={this.toggleEditModal}
-          playerPlay={this.playerPlay}
-        />
-      </ItemContainer>
+          <SoundEdit
+            soundId={soundId}
+            open={isEditing}
+            onClose={this.toggleEditModal}
+            playerPlay={this.playerPlay}
+          />
+        </ItemContainer>
+      </Card>
     );
   }
 }

@@ -75,6 +75,7 @@ class SoundEdit extends Component {
       DSetSoundFile,
       DSetSoundKeybind,
       DSetSoundName,
+      playerPlay,
       // Modal-related
       open,
       onClose,

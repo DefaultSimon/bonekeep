@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import styles from './Card.scss';
+import { ReactChildren } from './proptypes/commontypes';
 
 function Card(props) {
   const { children, className, ...other } = props;
@@ -17,10 +18,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: ReactChildren.isRequired,
   className: PropTypes.string
 };
 Card.defaultProps = {

@@ -10,7 +10,7 @@ import Root from './containers/Root';
 // Import Semantic UI
 import './semanticui/semantic.less';
 // Import custom stylesheets
-import './styles/_main.scss';
+import './styles/main.scss';
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 
