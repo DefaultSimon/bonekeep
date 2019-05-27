@@ -1,0 +1,23 @@
+// (no)border shorthand classes
+
+// Border-radius removal shorthands
+// Specificity hack
+.no-border.no-border.no-border {
+  &.left {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  &.right {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &.top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  &.bottom {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

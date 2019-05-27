@@ -1,0 +1,48 @@
+// Color-related shorthand classes
+
+// Common color values, computed to c-<name>[-light,-dark]
+$colors: (
+  primary: (
+    $color-primary,
+    $color-primary-light,
+    $color-primary-dark
+  ),
+  secondary: (
+    $color-secondary,
+    $color-secondary-light,
+    $color-secondary-dark
+  ),
+  transparent: (
+    $color-transparent,
+    transparentize($color-transparent, 0.35),
+    opacify($color-transparent, 0.35)
+  )
+);
+
+// Create color classes
+@each $name, $values in $colors {
+  .c-#{$name} {
+    color: nth($values, 1);
+
+    &-light {
+      color: nth($values, 2);
+    }
+    &-dark {
+      color: nth($values, 3);
+    }
+  }
+}
+
+// Create background color classes
+@each $name, $values in $colors {
+  .bg-#{$name} {
+    background-color: nth($values, 1);
+
+    &-light {
+      background-color: nth($values, 2);
+    }
+    &-dark {
+      background-color: nth($values, 3);
+    }
+  }
+}

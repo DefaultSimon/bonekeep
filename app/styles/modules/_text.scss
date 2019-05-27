@@ -1,0 +1,44 @@
+// Text shorthand classes
+
+// Weight
+.text.primary {
+  &-light {
+    font-weight: $color-primary-light;
+  }
+  &-normal {
+    font-weight: $font-primary-normal;
+  }
+  &-bold {
+    font-weight: $font-primary-bold;
+  }
+}
+
+.text.secondary {
+  &-light {
+    font-weight: $color-secondary-light;
+  }
+  &-normal {
+    font-weight: $font-secondary-normal;
+  }
+  &-bold {
+    font-weight: $font-secondary-bold;
+  }
+}
+
+// Size
+.text.size {
+  &-normal {
+    font-size: 1rem;
+  }
+  &-small {
+    font-size: 0.65rem;
+  }
+  &-bigger {
+    font-size: 1.3rem;
+  }
+  &-huge {
+    font-size: 1.6rem;
+  }
+}
+
+// TODO other styles

@@ -1,0 +1,42 @@
+// Margin and padding shorthand classes
+
+$padding-values: (3, 5, 8, 10, 15, 20, 25, 30, 50, 75);
+$margin-values: $padding-values;
+
+@each $p in $padding-values {
+  .p-#{$p} {
+    padding: #{$p}px !important;
+  }
+
+  .pt-#{$p} {
+    padding-top: #{$p}px !important;
+  }
+  .pb-#{$p} {
+    padding-bottom: #{$p}px !important;
+  }
+  .pl-#{$p} {
+    padding-left: #{$p}px !important;
+  }
+  .pr-#{$p} {
+    padding-right: #{$p}px !important;
+  }
+}
+
+@each $m in $margin-values {
+  .m-#{$m} {
+    margin: #{$m}px !important;
+  }
+
+  .mt-#{$m} {
+    margin-top: #{$m}px !important;
+  }
+  .mb-#{$m} {
+    margin-bottom: #{$m}px !important;
+  }
+  .ml-#{$m} {
+    margin-left: #{$m}px !important;
+  }
+  .mr-#{$m} {
+    margin-right: #{$m}px !important;
+  }
+}

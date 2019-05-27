@@ -1,0 +1,25 @@
+// Flex shorthand classes
+
+.flex {
+  display: flex !important;
+
+  // common: completely centered
+  &-c1 {
+    @extend .flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.col {
+  flex-direction: column;
+  &-reverse {
+    flex-direction: column-reverse;
+  }
+}
+.row {
+  flex-direction: row;
+  &-reverse {
+    flex-direction: row-reverse;
+  }
+}

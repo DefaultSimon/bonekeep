@@ -1,90 +1,20 @@
 // MAIN STYLES
 // things like paragraphs, headings, fonts and more
 
-body {
-  font-family: $font-secondary;
-  font-weight: $font-secondary-normal;
-}
+// Variables
+@import './vars';
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $font-primary;
-  font-weight: $font-primary-normal;
-}
+// normalize.css resets and fonts
+@import '_normalize.css';
+@import 'fontface';
 
-// FLEX
-.flex {
-  display: flex;
+// MODULES
+@import 'modules/resets';
+@import 'modules/flex';
+@import 'modules/spacing';
+@import 'modules/color-shorthands';
+@import 'modules/border';
+@import 'modules/text';
 
-  // common: completely centered
-  &-c1 {
-    @extend .flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-.col {
-  flex-direction: column;
-  &-reverse {
-    flex-direction: column-reverse;
-  }
-}
-.row {
-  flex-direction: row;
-  &-reverse {
-    flex-direction: row-reverse;
-  }
-}
-
-// Common PADDING and MARGIN values
-$paddings: (3, 5, 8, 10, 15, 20, 25, 30, 50);
-$margins: $paddings;
-
-@each $p in $paddings {
-  .p-#{$p} {
-    padding: #{$p}px;
-  }
-}
-
-@each $m in $margins {
-  .m-#{$m} {
-    margin: #{$m}px;
-  }
-}
-
-// Common color values
-.c-primary {
-  color: $color-primary;
-
-  &-light {
-    color: $color-primary-light;
-  }
-  &-dark {
-    color: $color-primary-dark;
-  }
-}
-
-.c-secondary {
-  color: $color-secondary;
-
-  &-light {
-    color: $color-secondary-light;
-  }
-  &-dark {
-    color: $color-secondary-dark;
-  }
-}
-
-.transparent {
-  &-c {
-    color: transparent;
-  }
-  &-bg {
-    background: transparent;
-  }
-}
+// Modules
+@import '~@fortawesome/fontawesome-free/css/all.css';

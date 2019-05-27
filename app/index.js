@@ -3,14 +3,14 @@ import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
 
 import { createStore } from 'redux';
-import rootReducer from './reducers/root';
+import rootReducer from './redux/reducers/root';
 
 import Root from './containers/Root';
 
 // Import Semantic UI
 import './semanticui/semantic.less';
 // Import custom stylesheets
-import './app.global.scss';
+import './styles/_main.scss';
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 

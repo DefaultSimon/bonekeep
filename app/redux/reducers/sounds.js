@@ -1,9 +1,11 @@
 // @flow
-import produce from 'immer';
+import produce from 'immer/dist/immer';
 import {
-  UPDATE_SOUND_FILE,
-  UPDATE_SOUND_OBJ,
-  UPDATE_SOUND_KEYBIND
+  SET_SOUND_FILE,
+  SET_SOUND_OBJ,
+  SET_SOUND_KEYBIND,
+  SET_SOUND_EDITING,
+  SET_SOUND_NAME
 } from '../actions/sounds';
 
 const initialSoundState = {
@@ -37,7 +39,7 @@ function ensureSoundExists(state, soundId) {
  * @param producer  Callback that takes a draft object as an argument (draft is in this case the sound object).
  * @returns Updated state
  */
-function modifySoundById(state, soundId, producer: Object => void) {
+function modifySoundById(state, soundId, producer) {
   const ensuredState = ensureSoundExists(state, soundId);
 
   return {
@@ -53,25 +55,39 @@ function modifySoundById(state, soundId, producer: Object => void) {
 
 export default function sounds(state = initialSoundState, action) {
   switch (action.type) {
-    case UPDATE_SOUND_FILE: {
+    case SET_SOUND_FILE: {
       const { soundId, filename } = action;
 
       return modifySoundById(state, soundId, draft => {
         draft.filename = filename;
       });
     }
-    case UPDATE_SOUND_OBJ: {
+    case SET_SOUND_OBJ: {
       const { soundId, soundObj } = action;
 
       return modifySoundById(state, soundId, draft => {
         draft.soundObj = soundObj;
       });
     }
-    case UPDATE_SOUND_KEYBIND: {
+    case SET_SOUND_KEYBIND: {
       const { soundId, keybind } = action;
 
       return modifySoundById(state, soundId, draft => {
         draft.keybind = keybind;
+      });
+    }
+    case SET_SOUND_EDITING: {
+      const { soundId, isEditing } = action;
+
+      return modifySoundById(state, soundId, draft => {
+        draft.isEditing = isEditing;
+      });
+    }
+    case SET_SOUND_NAME: {
+      const { soundId, name } = action;
+
+      return modifySoundById(state, soundId, draft => {
+        draft.name = name;
       });
     }
     default: {
