@@ -1,45 +1,50 @@
 // @flow
-import PropTypes from 'prop-types';
+import { SoundId, SoundAction } from '../types/sound';
 
-export const SET_SOUND_FILE = 'UPDATE_SOUND_FILE';
-export const SET_SOUND_OBJ = 'UPDATE_SOUND_OBJ';
-export const SET_SOUND_KEYBIND = 'UPDATE_SOUND_KEYBIND';
-export const SET_SOUND_EDITING = 'SET_SOUND_EDITING';
-export const SET_SOUND_NAME = 'SET_SOUND_NAME';
+export const ADD_SOUND: string = 'ADD_SOUND';
+export const SET_SOUND_FILE: string = 'UPDATE_SOUND_FILE';
+export const SET_SOUND_OBJ: string = 'UPDATE_SOUND_OBJ';
+export const SET_SOUND_KEYBIND: string = 'UPDATE_SOUND_KEYBIND';
+export const SET_SOUND_EDITING: string = 'SET_SOUND_EDITING';
+export const SET_SOUND_NAME: string = 'SET_SOUND_NAME';
 
-export const SOUND_STRUCTURE = {
-  soundId: PropTypes.number,
-  filename: PropTypes.string,
-  soundObj: PropTypes.any,
-  keybind: PropTypes.string,
-  isEditing: PropTypes.boolean
-};
+export const addSound = (soundId: SoundId): SoundAction => ({
+  type: ADD_SOUND,
+  soundId
+});
 
-export const setSoundFile = (soundId, filename: string) => ({
+export const setSoundFile = (
+  soundId: SoundId,
+  filename: string
+): SoundAction => ({
   type: SET_SOUND_FILE,
   soundId,
   filename
 });
 
-export const setSoundObj = (soundId, soundObj) => ({
+// TODO fix any
+export const setSoundObj = (soundId: SoundId, soundObj: any): SoundAction => ({
   type: SET_SOUND_OBJ,
   soundId,
   soundObj
 });
 
-export const setSoundKeybind = (soundId, keybind) => ({
+export const setSoundKeybind = (
+  soundId: SoundId,
+  keybind: string
+): SoundAction => ({
   type: SET_SOUND_KEYBIND,
   soundId,
   keybind
 });
 
-export const setSoundEditing = (soundId, isEditing) => ({
+export const setSoundEditing = (soundId: SoundId, isEditing: boolean) => ({
   type: SET_SOUND_EDITING,
   soundId,
   isEditing
 });
 
-export const setSoundName = (soundId, name) => ({
+export const setSoundName = (soundId: SoundId, name: string) => ({
   type: SET_SOUND_NAME,
   soundId,
   name

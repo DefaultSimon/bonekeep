@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Input, Modal, Label, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,36 +8,73 @@ import FontAwesomeIcon from '../components/FontAwesomeIcon';
 import {
   setSoundFile,
   setSoundKeybind,
-  setSoundName,
-  SOUND_STRUCTURE
+  setSoundName
 } from '../redux/actions/sounds';
+import { SoundId, SoundActionCreator, SoundState } from '../redux/types/sound';
 
 import { setKeybind, removeKeybind } from '../core/Keybinds';
 
-import { mapSound } from '../redux/connect/stateToPropsCommon';
+import { mapSoundById } from '../redux/connect/stateToPropsCommon';
 import { stripToLength } from '../core/Utilities';
 
-class SoundEdit extends Component {
+type Props = {
+  open: boolean,
+  onClose?: () => void,
+  playerPlay?: () => void,
+  soundId: SoundId,
+  sound?: SoundState,
+  DSetSoundFile: SoundActionCreator,
+  DSetSoundKeybind: SoundActionCreator,
+  DSetSoundName: SoundActionCreator
+};
+
+class SoundEdit extends Component<Props> {
+  static defaultProps = {
+    sound: {},
+    onClose: null,
+    playerPlay: null
+  };
+
   constructor(props) {
     super(props);
-
-    ipcRenderer.on('fileDialog-chosen', (_, args) => {
-      // If no file was chosen, return
-      if (args === null || args.length === 0) {
-        return;
-      }
-
-      const { DSetSoundFile } = this.props;
-      DSetSoundFile(this.soundId, args[0]);
-    });
 
     this.soundId = props.soundId;
     this.keybindInputRef = React.createRef();
     this.nameInputRef = React.createRef();
   }
 
+  componentWillUnmount = () => {
+    this.removeFileDialogCallback();
+  };
+
+  handleChosenFile = (_, args) => {
+    // First, stop listening for any more file dialog events as not to interfere with other modals
+    this.removeFileDialogCallback();
+
+    // If no file was chosen, return
+    if (args === null || args.length === 0) {
+      return;
+    }
+
+    const { DSetSoundFile } = this.props;
+    console.log(`Setting file for ${this.soundId}`);
+    DSetSoundFile(this.soundId, args[0]);
+  };
+
+  setFileDialogCallback = () => {
+    console.log('Setting callback');
+    ipcRenderer.on('fileDialog-done', this.handleChosenFile);
+  };
+
+  removeFileDialogCallback = () => {
+    console.log('Cleaning up callback');
+    ipcRenderer.removeListener('fileDialog-done', this.handleChosenFile);
+  };
+
   openFileDialog = () => {
-    ipcRenderer.send('showOpenFileDialog', {});
+    this.setFileDialogCallback();
+
+    ipcRenderer.send('fileDialog-open', {});
   };
 
   setPlayKeybind = () => {
@@ -162,25 +198,6 @@ class SoundEdit extends Component {
   }
 }
 
-SoundEdit.propTypes = {
-  // Modal-specific
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-  playerPlay: PropTypes.func,
-  // Redux and other props
-  soundId: PropTypes.node.isRequired,
-  sound: PropTypes.shape(SOUND_STRUCTURE),
-  // Redux actions
-  DSetSoundFile: PropTypes.func.isRequired,
-  DSetSoundKeybind: PropTypes.func.isRequired,
-  DSetSoundName: PropTypes.func.isRequired
-};
-SoundEdit.defaultProps = {
-  sound: {},
-  onClose: null,
-  playerPlay: null
-};
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
@@ -193,6 +210,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapSound,
+  mapSoundById,
   mapDispatchToProps
 )(SoundEdit);

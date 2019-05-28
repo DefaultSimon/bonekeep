@@ -1,31 +1,24 @@
 // @flow
 import React, { Component } from 'react';
-import { Store } from 'redux';
 import { Provider } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import Sound from './Sound';
+import SoundSet from './SoundSet';
+import { Store as StoreType } from '../redux/types/common';
 
-// readdir('.', { withFileTypes: true }, (_, dir) => {
-//   console.log(dir);
-// });
+type Props = {
+  store: StoreType
+};
 
-class Root extends Component {
+class Root extends Component<Props> {
   render() {
     const { store } = this.props;
 
     return (
       <Provider store={store}>
-        <div className="flex">
-          <Sound soundId={0} />
-        </div>
+        <SoundSet />
       </Provider>
     );
   }
 }
-
-Root.propTypes = {
-  store: PropTypes.shape(Store).isRequired
-};
 
 export default Root;

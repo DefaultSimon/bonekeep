@@ -1,7 +1,10 @@
 // @flow
 import { app, ipcMain, dialog } from 'electron';
 
-ipcMain.on('showOpenFileDialog', (event, options) => {
+const FILE_DIALOG_OPEN = 'fileDialog-open';
+const FILE_DIALOG_DONE = 'fileDialog-done';
+
+ipcMain.on(FILE_DIALOG_OPEN, (event, options) => {
   const defaults = {
     title: 'Open file',
     defaultPath: app.getAppPath(),
@@ -9,6 +12,6 @@ ipcMain.on('showOpenFileDialog', (event, options) => {
   };
 
   dialog.showOpenDialog({ ...defaults, ...options }, (fp, bookmarks) => {
-    event.sender.send('fileDialog-chosen', fp, bookmarks);
+    event.sender.send(FILE_DIALOG_DONE, fp, bookmarks);
   });
 });

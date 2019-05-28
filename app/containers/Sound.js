@@ -3,14 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Howl } from 'howler';
-import PropTypes from 'prop-types';
 
 import { Button } from 'semantic-ui-react';
-import {
-  setSoundEditing,
-  SOUND_STRUCTURE,
-  setSoundObj
-} from '../redux/actions/sounds';
+import { setSoundEditing, setSoundObj } from '../redux/actions/sounds';
 
 import FontAwesomeIcon from '../components/FontAwesomeIcon';
 import ItemContainer from '../components/ItemContainer';
@@ -18,9 +13,13 @@ import Card from '../components/Card';
 
 import SoundEdit from './SoundEdit';
 
-import { mapSound } from '../redux/connect/stateToPropsCommon';
+import { mapSoundById } from '../redux/connect/stateToPropsCommon';
+import { SoundId, SoundState, SoundActionCreator } from '../redux/types/sound';
 
-const ButtonGroup = ({ buttons }) => (
+type ButtonGroupProps = {
+  buttons: Array<Array<string, () => void>>
+};
+const ButtonGroup = ({ buttons }: ButtonGroupProps) => (
   <Button.Group>
     {buttons.map(element => {
       const [iconName, onClick] = element;
@@ -33,15 +32,22 @@ const ButtonGroup = ({ buttons }) => (
     })}
   </Button.Group>
 );
-ButtonGroup.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  buttons: PropTypes.any.isRequired
+
+type SoundProps = {
+  soundId: SoundId,
+  sound?: SoundState,
+  // Actions
+  DSetSoundObj: SoundActionCreator,
+  DSetSoundEditing: SoundActionCreator
 };
 
-class Sound extends Component {
+class Sound extends Component<SoundProps> {
+  static defaultProps = {
+    sound: {}
+  };
+
   constructor(props) {
     super(props);
-
     this.soundId = props.soundId;
   }
 
@@ -129,18 +135,6 @@ class Sound extends Component {
   }
 }
 
-Sound.propTypes = {
-  soundId: PropTypes.node.isRequired,
-  // Redux state
-  sound: PropTypes.shape(SOUND_STRUCTURE),
-  // Redux actions
-  DSetSoundObj: PropTypes.func.isRequired,
-  DSetSoundEditing: PropTypes.func.isRequired
-};
-Sound.defaultProps = {
-  sound: {}
-};
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
@@ -152,6 +146,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapSound,
+  mapSoundById,
   mapDispatchToProps
 )(Sound);

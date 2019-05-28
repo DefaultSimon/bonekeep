@@ -5,7 +5,8 @@ import {
   SET_SOUND_OBJ,
   SET_SOUND_KEYBIND,
   SET_SOUND_EDITING,
-  SET_SOUND_NAME
+  SET_SOUND_NAME,
+  ADD_SOUND
 } from '../actions/sounds';
 
 const initialSoundState = {
@@ -24,7 +25,9 @@ function ensureSoundExists(state, soundId) {
       ...state,
       soundsById: {
         ...state.soundsById,
-        [soundId]: {}
+        [soundId]: {
+          soundId
+        }
       }
     };
   }
@@ -53,8 +56,17 @@ function modifySoundById(state, soundId, producer) {
   };
 }
 
+/**
+ * Main sound reducer
+ */
 export default function sounds(state = initialSoundState, action) {
   switch (action.type) {
+    case ADD_SOUND: {
+      const { soundId } = action;
+
+      // Creates the sound object if it doesn't already exist
+      return ensureSoundExists(state, soundId);
+    }
     case SET_SOUND_FILE: {
       const { soundId, filename } = action;
 
