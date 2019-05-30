@@ -7,7 +7,7 @@ import Sound from './Sound';
 import ItemContainer from '../components/ItemContainer';
 
 import { generateSoundId } from '../core/Utilities';
-import { SoundActionCreator, SoundId } from '../redux/types/sound';
+import { type SoundActionCreator, type SoundId } from '../redux/types/sound';
 
 import { mapSoundIdArray } from '../redux/connect/stateToPropsCommon';
 import { addSound } from '../redux/actions/sounds';

@@ -1,16 +1,22 @@
 // @flow
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { type Node } from 'react';
 import classNames from 'classnames';
 
-import { ReactChildren } from './proptypes/commontypes';
+type Props = {
+  children: Node,
+  className?: string | null,
+  bgColor?: string | null
+};
 
 /**
  * General-purpose (stateless) component
  */
-function ItemContainer(props) {
+function ItemContainer(props: Props) {
   const { children, className, bgColor, ...other } = props;
-  const classes = classNames(className, `bg-${bgColor}`);
+  const classes = classNames(
+    className,
+    bgColor ? `bg-${bgColor.toString()}` : null
+  );
 
   return (
     <span className={classes} {...other}>
@@ -19,11 +25,6 @@ function ItemContainer(props) {
   );
 }
 
-ItemContainer.propTypes = {
-  children: ReactChildren.isRequired,
-  className: PropTypes.string,
-  bgColor: PropTypes.string
-};
 ItemContainer.defaultProps = {
   className: null,
   bgColor: null

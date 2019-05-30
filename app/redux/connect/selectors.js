@@ -1,20 +1,23 @@
 // @flow
 // Common selectors
 import { createSelector } from 'reselect';
-import { SoundId, SoundState } from '../types/sound';
+import { type SoundId, type SoundState } from '../types/sound';
+import { type RootReduxState } from '../types/root';
 
-export const getSounds = state => state.sounds;
-export const getSoundsByIdObject = state => getSounds(state).soundsById;
-export const extractSound = (soundArray, props) => soundArray[props.soundId];
+export const getSounds = (state: RootReduxState) => state.sounds;
+export const getSoundsByIdObject = (state: RootReduxState) =>
+  getSounds(state).soundsById;
 
-export const getSoundById = (state, props) =>
+export const extractSound = (
+  soundsByIdObject: { [SoundId]: SoundState },
+  props: *
+) => soundsByIdObject[props.soundId];
+
+export const getSoundById = (state: RootReduxState, props: *) =>
   extractSound(getSoundsByIdObject(state), props);
 
-export const getSoundIdArray = createSelector(
+export const getSoundIdArray = createSelector<RootReduxState, *, *, *>(
   getSoundsByIdObject,
-  (soundsByIdObject: { [SoundId]: SoundState }) => {
-    console.log(soundsByIdObject);
-
-    return Object.keys(soundsByIdObject);
-  }
+  (soundsByIdObject: { [SoundId]: SoundState }): Array<SoundId> =>
+    Object.keys(soundsByIdObject)
 );

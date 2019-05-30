@@ -14,10 +14,14 @@ import Card from '../components/Card';
 import SoundEdit from './SoundEdit';
 
 import { mapSoundById } from '../redux/connect/stateToPropsCommon';
-import { SoundId, SoundState, SoundActionCreator } from '../redux/types/sound';
+import {
+  type SoundId,
+  type SoundState,
+  type SoundActionCreator
+} from '../redux/types/sound';
 
 type ButtonGroupProps = {
-  buttons: Array<Array<string, () => void>>
+  buttons: $ReadOnlyArray<[string, () => void]>
 };
 const ButtonGroup = ({ buttons }: ButtonGroupProps) => (
   <Button.Group>
@@ -42,6 +46,8 @@ type SoundProps = {
 };
 
 class Sound extends Component<SoundProps> {
+  soundId: SoundId;
+
   static defaultProps = {
     sound: {}
   };
@@ -55,10 +61,8 @@ class Sound extends Component<SoundProps> {
    * Start playing the current audio file.
    */
   playerPlay = () => {
-    const {
-      DSetSoundObj,
-      sound: { filename }
-    } = this.props;
+    const { DSetSoundObj, sound } = this.props;
+    const filename = sound ? sound.filename : null;
 
     const soundObj = new Howl({
       src: [filename],
@@ -77,9 +81,8 @@ class Sound extends Component<SoundProps> {
    * @param silent  whether to fail silently or with a console message
    */
   playerStop = (silent = false) => {
-    const {
-      sound: { soundObj }
-    } = this.props;
+    const { sound } = this.props;
+    const soundObj = sound ? sound.soundObj : null;
 
     if (soundObj == null) {
       if (silent !== true) {
@@ -92,19 +95,16 @@ class Sound extends Component<SoundProps> {
   };
 
   toggleEditModal = () => {
-    const {
-      DSetSoundEditing,
-      sound: { isEditing = false }
-    } = this.props;
+    const { DSetSoundEditing, sound } = this.props;
+    const isEditing = sound ? sound.isEditing : false;
 
     DSetSoundEditing(this.soundId, !isEditing);
   };
 
   render() {
-    const {
-      soundId,
-      sound: { name = null, isEditing = false }
-    } = this.props;
+    const { soundId, sound } = this.props;
+    const name = sound ? sound.name : null;
+    const isEditing = sound ? sound.isEditing : false;
 
     return (
       <Card>

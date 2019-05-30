@@ -13,7 +13,7 @@ const currentKeybinds = {};
 //   console.log(e);
 // };
 
-function getKeybinds(): currentKeybinds {
+function getKeybinds(): * {
   return currentKeybinds;
 }
 

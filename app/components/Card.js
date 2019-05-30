@@ -1,12 +1,15 @@
 // @flow
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { type Node } from 'react';
 import classNames from 'classnames';
 
 import styles from './Card.scss';
-import { ReactChildren } from './proptypes/commontypes';
 
-function Card(props) {
+type Props = {
+  children: Node,
+  className?: string | null
+};
+
+function Card(props: Props) {
   const { children, className, ...other } = props;
   const classes = classNames(styles.card, className);
 
@@ -17,10 +20,6 @@ function Card(props) {
   );
 }
 
-Card.propTypes = {
-  children: ReactChildren.isRequired,
-  className: PropTypes.string
-};
 Card.defaultProps = {
   className: null
 };

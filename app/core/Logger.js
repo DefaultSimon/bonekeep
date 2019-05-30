@@ -7,6 +7,8 @@
  * Format: [LoggerName] <your message>
  */
 class Logger {
+  name: string;
+
   constructor(name) {
     this.name = name;
   }

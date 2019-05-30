@@ -1,16 +1,28 @@
 // @flow
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { type Node } from 'react';
 import classNames from 'classnames';
-
-import { ReactChildren } from './proptypes/commontypes';
 import styles from './Button.scss';
 
-function Button(props) {
-  const { onClick, children, customBgClassName, className, ...other } = props;
+type Props = {
+  children: Node,
+  onClick?: () => void,
+  customBgClassName?: string,
+  className?: string
+};
+
+function Button(props: Props) {
+  const {
+    children,
+    onClick = () => {},
+    customBgClassName = null,
+    className = null,
+    ...other
+  } = props;
+
   const classes = classNames(
     styles.button,
-    customBgClassName || styles.button_bg
+    customBgClassName || styles.button_bg,
+    className
   );
 
   return (
@@ -26,16 +38,10 @@ function Button(props) {
   );
 }
 
-Button.propTypes = {
-  onClick: PropTypes.func,
-  children: ReactChildren.isRequired,
-  className: PropTypes.string,
-  customBgClassName: PropTypes.string
-};
 Button.defaultProps = {
-  onClick: undefined,
-  className: undefined,
-  customBgClassName: undefined
+  onClick: null,
+  className: null,
+  customBgClassName: null
 };
 
 export default Button;

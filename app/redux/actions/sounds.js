@@ -1,5 +1,5 @@
 // @flow
-import { SoundId, SoundAction } from '../types/sound';
+import { type SoundId, type SoundAction } from '../types/sound';
 
 export const ADD_SOUND: string = 'ADD_SOUND';
 export const SET_SOUND_FILE: string = 'UPDATE_SOUND_FILE';
@@ -22,8 +22,7 @@ export const setSoundFile = (
   filename
 });
 
-// TODO fix any
-export const setSoundObj = (soundId: SoundId, soundObj: any): SoundAction => ({
+export const setSoundObj = (soundId: SoundId, soundObj: *): SoundAction => ({
   type: SET_SOUND_OBJ,
   soundId,
   soundObj

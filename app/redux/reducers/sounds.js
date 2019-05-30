@@ -8,10 +8,12 @@ import {
   SET_SOUND_NAME,
   ADD_SOUND
 } from '../actions/sounds';
-
-const initialSoundState = {
-  soundsById: {}
-};
+import rootSoundState, {
+  type SoundState,
+  type SoundAction,
+  type SoundId,
+  type RootSoundsState
+} from '../types/sound';
 
 /**
  * Ensure that a sound object with the specific soundId exists in soundsById. If it doesn't, create it.
@@ -19,7 +21,7 @@ const initialSoundState = {
  * @param soundId  Sound ID
  * @return Updated state
  */
-function ensureSoundExists(state, soundId) {
+function ensureSoundExists(state: RootSoundsState, soundId: SoundId) {
   if (!Object.prototype.hasOwnProperty.call(state.soundsById, soundId)) {
     return {
       ...state,
@@ -42,15 +44,20 @@ function ensureSoundExists(state, soundId) {
  * @param producer  Callback that takes a draft object as an argument (draft is in this case the sound object).
  * @returns Updated state
  */
-function modifySoundById(state, soundId, producer) {
+function modifySoundById(
+  state: RootSoundsState,
+  soundId: SoundId,
+  producer: SoundState => void
+) {
   const ensuredState = ensureSoundExists(state, soundId);
 
   return {
     ...ensuredState,
     soundsById: {
       ...ensuredState.soundsById,
-      [soundId]: produce(ensuredState.soundsById[soundId], draft =>
-        producer(draft)
+      [soundId]: produce(
+        ensuredState.soundsById[soundId],
+        (draft: SoundState): void => producer(draft)
       )
     }
   };
@@ -59,10 +66,13 @@ function modifySoundById(state, soundId, producer) {
 /**
  * Main sound reducer
  */
-export default function sounds(state = initialSoundState, action) {
+export default function sounds(
+  state: RootSoundsState = rootSoundState,
+  action: SoundAction
+) {
   switch (action.type) {
     case ADD_SOUND: {
-      const { soundId } = action;
+      const { soundId }: SoundAction = action;
 
       // Creates the sound object if it doesn't already exist
       return ensureSoundExists(state, soundId);

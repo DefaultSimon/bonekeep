@@ -1,25 +1,41 @@
 // @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-class ControlledInput extends Component {
-  constructor(props) {
+type Props = {
+  type?: string,
+  onChange: (value: string) => void
+};
+
+type State = {
+  value: string
+};
+
+class ControlledInput extends Component<Props, State> {
+  onChange: (value: string) => void;
+
+  props: Props;
+
+  static defaultProps = {
+    type: 'text'
+  };
+
+  constructor(props: Props) {
     super(props);
 
-    const { onChangeCallback } = this.props;
-    this.onChangeCallback = onChangeCallback;
-
-    this.state = {
-      value: ''
-    };
+    const { onChange } = this.props;
+    this.onChange = onChange;
   }
+
+  state = {
+    value: ''
+  };
 
   /**
    * Catch changes, pass them onto the callback and set the result as the value.
    */
-  handleChange = (event: Event): void => {
+  handleChange = (event: SyntheticInputEvent<*>): void => {
     const { value } = event.target;
-    const callbackResult = this.onChangeCallback(value);
+    const callbackResult = this.onChange(value);
 
     this.setState({ value: callbackResult });
   };
@@ -34,7 +50,7 @@ class ControlledInput extends Component {
   };
 
   render() {
-    const { type, onChangeCallback, ...other } = this.props;
+    const { type, onChange, ...other } = this.props;
     const { value } = this.state;
 
     return (
@@ -47,13 +63,5 @@ class ControlledInput extends Component {
     );
   }
 }
-
-ControlledInput.propTypes = {
-  type: PropTypes.string,
-  onChangeCallback: PropTypes.func.isRequired
-};
-ControlledInput.defaultProps = {
-  type: 'text'
-};
 
 export default ControlledInput;

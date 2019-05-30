@@ -10,7 +10,11 @@ import {
   setSoundKeybind,
   setSoundName
 } from '../redux/actions/sounds';
-import { SoundId, SoundActionCreator, SoundState } from '../redux/types/sound';
+import {
+  type SoundId,
+  type SoundActionCreator,
+  type SoundState
+} from '../redux/types/sound';
 
 import { setKeybind, removeKeybind } from '../core/Keybinds';
 
@@ -20,7 +24,7 @@ import { stripToLength } from '../core/Utilities';
 type Props = {
   open: boolean,
   onClose?: () => void,
-  playerPlay?: () => void,
+  playerPlay: () => void,
   soundId: SoundId,
   sound?: SoundState,
   DSetSoundFile: SoundActionCreator,
@@ -29,10 +33,11 @@ type Props = {
 };
 
 class SoundEdit extends Component<Props> {
+  soundId: SoundId;
+
   static defaultProps = {
     sound: {},
-    onClose: null,
-    playerPlay: null
+    onClose: null
   };
 
   constructor(props) {
@@ -46,6 +51,14 @@ class SoundEdit extends Component<Props> {
   componentWillUnmount = () => {
     this.removeFileDialogCallback();
   };
+
+  keybindInputRef: {
+    current: null | { inputRef: { current: HTMLInputElement } }
+  } = React.createRef();
+
+  nameInputRef: {
+    current: null | { inputRef: { current: HTMLInputElement } }
+  } = React.createRef();
 
   handleChosenFile = (_, args) => {
     // First, stop listening for any more file dialog events as not to interfere with other modals
@@ -79,14 +92,18 @@ class SoundEdit extends Component<Props> {
 
   setPlayKeybind = () => {
     const { DSetSoundKeybind } = this.props;
-    const newKey = this.keybindInputRef.current.inputRef.current.value;
+
+    const currentInput = this.keybindInputRef.current;
+    if (currentInput == null) {
+      throw new Error('keybindInputRef is null!');
+    }
+    const newKey = currentInput.inputRef.current.value;
+
     // TODO transform to Logger, along with other log calls here
     console.log(`Keybind registered: ${newKey}`);
 
-    const {
-      sound: { keybind },
-      playerPlay
-    } = this.props;
+    const { sound, playerPlay } = this.props;
+    const keybind = sound ? sound.keybind : null;
     if (keybind) {
       // Unbind the previous bind
       removeKeybind(keybind);
@@ -99,7 +116,11 @@ class SoundEdit extends Component<Props> {
 
   setSoundName = () => {
     const { DSetSoundName } = this.props;
-    const newName = this.nameInputRef.current.inputRef.current.value;
+    const currentInput = this.nameInputRef.current;
+    if (currentInput == null) {
+      throw new Error('keybindInputRef is null!');
+    }
+    const newName = currentInput.inputRef.current.value;
 
     DSetSoundName(this.soundId, newName);
   };
@@ -117,6 +138,9 @@ class SoundEdit extends Component<Props> {
       onClose,
       ...other
     } = this.props;
+
+    const soundName = sound ? sound.name : null;
+    const soundFilename = sound ? sound.filename : null;
 
     return (
       <Modal size="large" open={open} onClose={onClose} {...other}>
@@ -140,7 +164,7 @@ class SoundEdit extends Component<Props> {
                       Update
                     </Button>
                   }
-                  placeholder={sound.name || 'Sound name'}
+                  placeholder={soundName || 'Sound name'}
                   ref={this.nameInputRef}
                 />
               </Grid.Column>
@@ -162,8 +186,8 @@ class SoundEdit extends Component<Props> {
                   <span className="ml-8">Load file</span>
                 </Button>
                 <Label pointing="left" size="medium">
-                  {sound.filename
-                    ? stripToLength(sound.filename, 50, '...')
+                  {soundFilename
+                    ? stripToLength(soundFilename, 50, '...')
                     : 'No file'}
                 </Label>
               </Grid.Column>
