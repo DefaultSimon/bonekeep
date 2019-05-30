@@ -7,6 +7,7 @@ export const SET_SOUND_OBJ: string = 'UPDATE_SOUND_OBJ';
 export const SET_SOUND_KEYBIND: string = 'UPDATE_SOUND_KEYBIND';
 export const SET_SOUND_EDITING: string = 'SET_SOUND_EDITING';
 export const SET_SOUND_NAME: string = 'SET_SOUND_NAME';
+export const REMOVE_SOUND: string = 'REMOVE_SOUND';
 
 export const addSound = (soundId: SoundId): SoundAction => ({
   type: ADD_SOUND,
@@ -47,4 +48,9 @@ export const setSoundName = (soundId: SoundId, name: string) => ({
   type: SET_SOUND_NAME,
   soundId,
   name
+});
+
+export const removeSound = (soundId: SoundId) => ({
+  type: REMOVE_SOUND,
+  soundId
 });

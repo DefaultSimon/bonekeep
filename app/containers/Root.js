@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import SoundSet from './SoundSet';
+import SoundSet from './Sound/SoundSet';
 import { type Store as StoreType } from '../redux/types/common';
 
 type Props = {

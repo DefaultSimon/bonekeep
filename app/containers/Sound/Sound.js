@@ -5,20 +5,27 @@ import { bindActionCreators } from 'redux';
 import { Howl } from 'howler';
 
 import { Button } from 'semantic-ui-react';
-import { setSoundEditing, setSoundObj } from '../redux/actions/sounds';
+import classNames from 'classnames';
+import {
+  setSoundEditing,
+  setSoundObj,
+  removeSound
+} from '../../redux/actions/sounds';
 
-import FontAwesomeIcon from '../components/FontAwesomeIcon';
-import ItemContainer from '../components/ItemContainer';
-import Card from '../components/Card';
+import FontAwesomeIcon from '../../components/FontAwesomeIcon';
+import ItemContainer from '../../components/ItemContainer';
+import Card from '../../components/Card';
 
 import SoundEdit from './SoundEdit';
 
-import { mapSoundById } from '../redux/connect/stateToPropsCommon';
+import { mapSoundById } from '../../redux/connect/stateToPropsCommon';
 import {
   type SoundId,
   type SoundState,
   type SoundActionCreator
-} from '../redux/types/sound';
+} from '../../redux/types/sound';
+
+import styles from './Sound.scss';
 
 type ButtonGroupProps = {
   buttons: $ReadOnlyArray<[string, () => void]>
@@ -42,7 +49,8 @@ type SoundProps = {
   sound?: SoundState,
   // Actions
   DSetSoundObj: SoundActionCreator,
-  DSetSoundEditing: SoundActionCreator
+  DSetSoundEditing: SoundActionCreator,
+  DRemoveSound: SoundActionCreator
 };
 
 class Sound extends Component<SoundProps> {
@@ -101,35 +109,60 @@ class Sound extends Component<SoundProps> {
     DSetSoundEditing(this.soundId, !isEditing);
   };
 
+  deleteSelf = () => {
+    const { DRemoveSound } = this.props;
+    console.log(`Removing sound with ID: ${this.soundId}`);
+    DRemoveSound(this.soundId);
+  };
+
   render() {
     const { soundId, sound } = this.props;
-    const name = sound ? sound.name : null;
-    const isEditing = sound ? sound.isEditing : false;
+
+    const soundName = sound ? sound.name : null;
+    const soundIsEditing = sound ? sound.isEditing : false;
+
+    const cardClasses = classNames(styles.sound, 'p-5', 'flex-c1', 'col');
+    const titleContainerClasses = classNames('m-3', 'mt-10');
+    const titleClasses = classNames('text', 'primary-bold', styles.title);
+    const buttonsClasses = classNames('m-3', 'mt-auto');
+    const removeBtnClasses = classNames('m-5', 'cursor-pointer');
 
     return (
-      <Card>
-        <ItemContainer className="p-5 flex-c1 col">
-          <ItemContainer className="m-3">
-            <span className="text primary-bold">{name || '~'}</span>
-          </ItemContainer>
+      <Card className={cardClasses}>
+        <ItemContainer className={titleContainerClasses}>
+          <span className={titleClasses}>{soundName || <i>No title</i>}</span>
+        </ItemContainer>
 
-          <ItemContainer className="m-3">
-            <ButtonGroup
-              buttons={[
-                ['edit', this.toggleEditModal],
-                ['play', this.playerPlay],
-                ['stop', this.playerStop]
-              ]}
-            />
-          </ItemContainer>
-
-          <SoundEdit
-            soundId={soundId}
-            open={isEditing}
-            onClose={this.toggleEditModal}
-            playerPlay={this.playerPlay}
+        <ItemContainer className={buttonsClasses}>
+          <ButtonGroup
+            buttons={[
+              ['edit', this.toggleEditModal],
+              ['play', this.playerPlay],
+              ['stop', this.playerStop]
+            ]}
           />
         </ItemContainer>
+
+        <SoundEdit
+          soundId={soundId}
+          open={soundIsEditing}
+          onClose={this.toggleEditModal}
+          playerPlay={this.playerPlay}
+        />
+
+        <span
+          role="button"
+          tabIndex={-1}
+          className={styles.remove}
+          onClick={this.deleteSelf}
+        >
+          <FontAwesomeIcon
+            iconName="trash-alt"
+            color="c-primary-dark"
+            iconSize="sm"
+            className={removeBtnClasses}
+          />
+        </span>
       </Card>
     );
   }
@@ -139,7 +172,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       DSetSoundObj: setSoundObj,
-      DSetSoundEditing: setSoundEditing
+      DSetSoundEditing: setSoundEditing,
+      DRemoveSound: removeSound
     },
     dispatch
   );

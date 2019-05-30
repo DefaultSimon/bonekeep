@@ -1,0 +1,13 @@
+// Common classes
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+  &-text {
+    cursor: text;
+  }
+  &-grab {
+    cursor: grab;
+  }
+}

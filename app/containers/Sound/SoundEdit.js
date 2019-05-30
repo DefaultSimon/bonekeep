@@ -4,22 +4,22 @@ import { Button, Input, Modal, Label, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ipcRenderer } from 'electron';
-import FontAwesomeIcon from '../components/FontAwesomeIcon';
+import FontAwesomeIcon from '../../components/FontAwesomeIcon';
 import {
   setSoundFile,
   setSoundKeybind,
   setSoundName
-} from '../redux/actions/sounds';
+} from '../../redux/actions/sounds';
 import {
   type SoundId,
   type SoundActionCreator,
   type SoundState
-} from '../redux/types/sound';
+} from '../../redux/types/sound';
 
-import { setKeybind, removeKeybind } from '../core/Keybinds';
+import { setKeybind, removeKeybind } from '../../core/Keybinds';
 
-import { mapSoundById } from '../redux/connect/stateToPropsCommon';
-import { stripToLength } from '../core/Utilities';
+import { mapSoundById } from '../../redux/connect/stateToPropsCommon';
+import { stripToLength } from '../../core/Utilities';
 
 type Props = {
   open: boolean,

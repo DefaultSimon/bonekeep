@@ -6,7 +6,8 @@ import {
   SET_SOUND_KEYBIND,
   SET_SOUND_EDITING,
   SET_SOUND_NAME,
-  ADD_SOUND
+  ADD_SOUND,
+  REMOVE_SOUND
 } from '../actions/sounds';
 import rootSoundState, {
   type SoundState,
@@ -64,6 +65,24 @@ function modifySoundById(
 }
 
 /**
+ * Remove a sound by its ID.
+ * @param state   Redux state
+ * @param soundId Sound ID
+ * @returns Updated state
+ */
+function removeSoundById(state: RootSoundsState, soundId: SoundId) {
+  const updatedSounds = Object.assign({}, state.soundsById);
+  delete updatedSounds[soundId];
+
+  return {
+    ...state,
+    soundsById: {
+      ...updatedSounds
+    }
+  };
+}
+
+/**
  * Main sound reducer
  */
 export default function sounds(
@@ -111,6 +130,11 @@ export default function sounds(
       return modifySoundById(state, soundId, draft => {
         draft.name = name;
       });
+    }
+    case REMOVE_SOUND: {
+      const { soundId } = action;
+
+      return removeSoundById(state, soundId);
     }
     default: {
       return state;

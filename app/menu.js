@@ -1,5 +1,5 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu, shell } from 'electron';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -181,7 +181,7 @@ export default class MenuBuilder {
   }
 
   buildDefaultTemplate() {
-    const templateDefault = [
+    return [
       {
         label: '&File',
         submenu: [
@@ -271,7 +271,5 @@ export default class MenuBuilder {
         ]
       }
     ];
-
-    return templateDefault;
   }
 }

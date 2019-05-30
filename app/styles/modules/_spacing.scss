@@ -40,3 +40,21 @@ $margin-values: $padding-values;
     margin-right: #{$m}px !important;
   }
 }
+
+// Auto margin
+.m-auto {
+  margin: auto !important;
+}
+
+.mt-auto {
+  margin-top: auto !important;
+}
+.mb-auto {
+  margin-bottom: auto !important;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+.mr-auto {
+  margin-right: auto !important;
+}
