@@ -1,4 +1,4 @@
-// Flex shorthand classes
+// Resets and common fixes
 
 body {
   font-family: $font-secondary;
@@ -13,4 +13,9 @@ h5,
 h6 {
   font-family: $font-primary;
   font-weight: $font-primary-normal;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

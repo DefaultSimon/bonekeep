@@ -76,3 +76,9 @@ $font-secondary-bold: 700;
  */
 $card-margin: 3px;
 $card-padding: 5px;
+
+$sidebar-width: 25%;
+$sidebar-max-width: 300px;
+$sidebar-min-width: 180px;
+
+$scene-width: (100% - $sidebar-width);

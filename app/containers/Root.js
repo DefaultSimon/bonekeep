@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import SoundSet from './Sound/SoundSet';
 import { type Store as StoreType } from '../redux/types/common';
+import Sidebar from './Sidebar/Sidebar';
+import Scene from './Scene/Scene';
+import ItemContainer from '../components/ItemContainer';
 
 type Props = {
   store: StoreType
@@ -15,7 +17,10 @@ class Root extends Component<Props> {
 
     return (
       <Provider store={store}>
-        <SoundSet />
+        <ItemContainer className="flex row h-full">
+          <Sidebar />
+          <Scene />
+        </ItemContainer>
       </Provider>
     );
   }

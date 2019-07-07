@@ -5,8 +5,6 @@ import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
 import reduxStore from './redux/store';
 import Root from './containers/Root';
 
-// Import Semantic UI
-import './semanticui/semantic.less';
 // Import custom stylesheets
 import './styles/main.scss';
 

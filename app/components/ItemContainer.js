@@ -19,9 +19,9 @@ function ItemContainer(props: Props) {
   );
 
   return (
-    <span className={classes} {...other}>
+    <div className={classes} {...other}>
       {children}
-    </span>
+    </div>
   );
 }
 
