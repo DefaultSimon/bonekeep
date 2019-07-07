@@ -16,6 +16,9 @@ import {
   type SoundState
 } from '../../redux/types/sound';
 
+import Logger from '../../core/Logger';
+import { soundStore } from '../../core/SoundStore';
+
 import { setKeybind, removeKeybind } from '../../core/Keybinds';
 
 import { mapSoundById } from '../../redux/connect/stateToPropsCommon';
@@ -35,6 +38,8 @@ type Props = {
 class SoundEdit extends Component<Props> {
   soundId: SoundId;
 
+  log: typeof Logger;
+
   static defaultProps = {
     sound: {},
     onClose: null
@@ -46,6 +51,8 @@ class SoundEdit extends Component<Props> {
     this.soundId = props.soundId;
     this.keybindInputRef = React.createRef();
     this.nameInputRef = React.createRef();
+
+    this.log = new Logger(`SoundEdit<${this.soundId}>`);
   }
 
   componentWillUnmount = () => {
@@ -60,6 +67,11 @@ class SoundEdit extends Component<Props> {
     current: null | { inputRef: { current: HTMLInputElement } }
   } = React.createRef();
 
+  /**
+   * Handle and set the chosen file as the audio source of current sound.
+   * @param _
+   * @param args Arguments, as provided by electron's file dialog
+   */
   handleChosenFile = (_, args) => {
     // First, stop listening for any more file dialog events as not to interfere with other modals
     this.removeFileDialogCallback();
@@ -69,27 +81,51 @@ class SoundEdit extends Component<Props> {
       return;
     }
 
+    // Destroy previous sound instance
+    this.destroySoundInstance();
+
     const { DSetSoundFile } = this.props;
-    console.log(`Setting file for ${this.soundId}`);
+    this.log.debug(`Setting file for ${this.soundId}`);
     DSetSoundFile(this.soundId, args[0]);
   };
 
+  /**
+   * Sets the file dialog callback,
+   * calling handleChosenFile when the file is chosen.
+   */
   setFileDialogCallback = () => {
-    console.log('Setting callback');
+    this.log.debug('Setting callback for file dialog');
     ipcRenderer.on('fileDialog-done', this.handleChosenFile);
   };
 
+  /**
+   * Removes the file dialog callback.
+   */
   removeFileDialogCallback = () => {
-    console.log('Cleaning up callback');
+    this.log.debug('Cleaning up callback for file dialog');
     ipcRenderer.removeListener('fileDialog-done', this.handleChosenFile);
   };
 
+  /**
+   * Removes the current Sound instance, if it exists.
+   */
+  destroySoundInstance = () => {
+    this.log.debug('Destroying sound instance...');
+    soundStore.destroySound(this.soundId);
+  };
+
+  /**
+   * Open a file dialog via the main process.
+   */
   openFileDialog = () => {
     this.setFileDialogCallback();
 
     ipcRenderer.send('fileDialog-open', {});
   };
 
+  /**
+   * Set the keybind for playing based on the key provided in the input box.
+   */
   setPlayKeybind = () => {
     const { DSetSoundKeybind } = this.props;
 
@@ -99,8 +135,7 @@ class SoundEdit extends Component<Props> {
     }
     const newKey = currentInput.inputRef.current.value;
 
-    // TODO transform to Logger, along with other log calls here
-    console.log(`Keybind registered: ${newKey}`);
+    this.log.debug(`Keybind registered: ${newKey}`);
 
     const { sound, playerPlay } = this.props;
     const keybind = sound ? sound.keybind : null;
@@ -114,6 +149,9 @@ class SoundEdit extends Component<Props> {
     DSetSoundKeybind(this.soundId, newKey);
   };
 
+  /**
+   * Set the sound name based on value in the input box.
+   */
   setSoundName = () => {
     const { DSetSoundName } = this.props;
     const currentInput = this.nameInputRef.current;

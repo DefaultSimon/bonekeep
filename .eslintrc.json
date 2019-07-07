@@ -12,6 +12,8 @@
     "jsx-a11y/click-events-have-key-events": null,
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "no-param-reassign": "off",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "flowtype/object-type-delimiter": "semicolon",
+    "flowtype/delimiter-dangle": "always"
   }
 }

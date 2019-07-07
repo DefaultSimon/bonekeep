@@ -2,7 +2,10 @@
  * SCSS VARIABLES
  */
 
-// COLORS
+/*
+ * COLORS
+ */
+
 //$color-primary: #d19c1d;
 $color-primary: #2185d0;
 $color-primary-light: lighten($color-primary, 13%);
@@ -18,17 +21,58 @@ $color-white: #fff;
 $color-black: #212121;
 $color-transparent: transparentize($color-black, 0.6);
 
-// FONTS
+// NOTE: all exported variables should be prefixed with 'var' to allow for stylelint whitelisting
+// example: ePrimary
+//noinspection ALL
+:export {
+  varPrimary: $color-primary;
+  varPrimaryLight: $color-primary-light;
+  varPrimaryDark: $color-primary-dark;
+
+  varSecondary: $color-secondary;
+  varSecondaryLight: $color-secondary-light;
+  varSecondaryDark: $color-secondary-dark;
+
+  varWhite: $color-white;
+  varBlack: $color-black;
+  varTransparent: $color-transparent;
+}
+
+// Component-specific
+$volume-handle-color: darken($color-primary, 21%);
+$volume-handle-border: darken($color-primary, 5%);
+$volume-range-color: darken($color-primary-light, 5%);
+$volume-track-color: lighten($color-primary-light, 5%);
+
+//noinspection ALL
+:export {
+  varVolumeHandleColor: $volume-handle-color;
+  varVolumeHandleBorder: $volume-handle-border;
+  varVolumeRangeColor: $volume-range-color;
+  varVolumeTrackColor: $volume-track-color;
+}
+
+/*
+ * FONTS
+ */
 // font faces are in app.global.scss
 
 $font-primary: Roboto, sans-serif;
 $font-secondary: 'Open Sans', sans-serif;
 
 // font-weight values for included fonts
+$font-primary-light: 300;
 $font-primary-normal: 400;
 $font-primary-medium: 500;
 $font-primary-bold: 700;
 
+$font-secondary-light: 300;
 $font-secondary-normal: 400;
 $font-secondary-medium: 600;
 $font-secondary-bold: 700;
+
+/*
+ * OTHER
+ */
+$card-margin: 3px;
+$card-padding: 5px;

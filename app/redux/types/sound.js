@@ -5,10 +5,10 @@ export type SoundId = string;
 export type SoundState = {
   soundId: SoundId,
   filename?: string | null,
-  soundObj?: * | null,
   keybind?: string | null,
   name?: string,
-  isEditing?: boolean
+  isEditing?: boolean,
+  volume: number
 };
 
 // Base sound action type

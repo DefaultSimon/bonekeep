@@ -1,20 +1,21 @@
-@import '../../styles/vars';
-
 .sound {
   position: relative;
 
   min-height: 115px;
   min-width: 190px;
 
-  .title {
-    font-weight: $font-primary-normal;
-    letter-spacing: 0.25px;
-  }
+  width: calc(50% - #{$card-margin * 2});
+}
 
-  .remove {
-    position: absolute;
+.title {
+  font-size: 1.3rem;
+  font-weight: $font-primary-normal;
+  letter-spacing: 0.25px;
+}
 
-    top: 0;
-    right: 0;
-  }
+.remove {
+  position: absolute;
+
+  top: 0;
+  right: 0;
 }

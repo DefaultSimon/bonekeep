@@ -2,12 +2,12 @@
 import produce from 'immer/dist/immer';
 import {
   SET_SOUND_FILE,
-  SET_SOUND_OBJ,
   SET_SOUND_KEYBIND,
   SET_SOUND_EDITING,
   SET_SOUND_NAME,
   ADD_SOUND,
-  REMOVE_SOUND
+  REMOVE_SOUND,
+  SET_SOUND_VOLUME
 } from '../actions/sounds';
 import rootSoundState, {
   type SoundState,
@@ -103,13 +103,6 @@ export default function sounds(
         draft.filename = filename;
       });
     }
-    case SET_SOUND_OBJ: {
-      const { soundId, soundObj } = action;
-
-      return modifySoundById(state, soundId, draft => {
-        draft.soundObj = soundObj;
-      });
-    }
     case SET_SOUND_KEYBIND: {
       const { soundId, keybind } = action;
 
@@ -135,6 +128,13 @@ export default function sounds(
       const { soundId } = action;
 
       return removeSoundById(state, soundId);
+    }
+    case SET_SOUND_VOLUME: {
+      const { soundId, volume } = action;
+
+      return modifySoundById(state, soundId, draft => {
+        draft.volume = volume;
+      });
     }
     default: {
       return state;

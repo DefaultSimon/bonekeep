@@ -1,9 +1,7 @@
 // Card
-@import '../styles/vars';
-
 .card {
-  margin: 3px;
-  padding: 5px;
+  margin: $card-margin;
+  padding: $card-padding;
 
   background-color: transparentize($color-primary-light, 0.3);
 

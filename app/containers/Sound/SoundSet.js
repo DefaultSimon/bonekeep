@@ -3,30 +3,40 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'semantic-ui-react';
+import classNames from 'classnames';
+
 import Sound from './Sound';
 import ItemContainer from '../../components/ItemContainer';
+import FontAwesomeIcon from '../../components/FontAwesomeIcon';
 
 import { generateSoundId } from '../../core/Utilities';
-import { type SoundActionCreator, type SoundId } from '../../redux/types/sound';
 
+import { type SoundActionCreator, type SoundId } from '../../redux/types/sound';
 import { mapSoundIdArray } from '../../redux/connect/stateToPropsCommon';
 import { addSound } from '../../redux/actions/sounds';
-import FontAwesomeIcon from '../../components/FontAwesomeIcon';
+
+import styles from './SoundSet.scss';
 
 type AddProps = {
   addNewSound: (soundId: SoundId) => void
 };
 
+const addSoundClasses = classNames(
+  'm-8',
+  'flex-c1',
+  'col',
+  styles.add,
+  styles.soundset
+);
+const addStringClasses = classNames('mt-5', 'text', 'nowrap');
 const AddSoundButton = ({ addNewSound }: AddProps) => (
-  <Button onClick={addNewSound} as="span" className="m-8">
-    <ItemContainer className="flex-c1 col">
-      <FontAwesomeIcon
-        iconName="plus-square"
-        color="c-transparent"
-        iconSize="3x"
-      />
-      <span className="mt-5">Add Sound</span>
-    </ItemContainer>
+  <Button onClick={addNewSound} as="span" className={addSoundClasses}>
+    <FontAwesomeIcon
+      iconName="plus-square"
+      color="c-transparent"
+      iconSize="3x"
+    />
+    <span className={addStringClasses}>Add Sound</span>
   </Button>
 );
 

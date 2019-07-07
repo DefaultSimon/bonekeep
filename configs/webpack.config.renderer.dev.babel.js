@@ -100,7 +100,7 @@ export default merge.smart(baseConfig, {
       },
       // SASS support - compile all other .scss files and pipe it to style.css
       {
-        test: /^((?!main).)*\.(scss|sass)/,
+        test: /^((?!main).)*\.(scss|sass)$/,
         use: [
           {
             loader: 'style-loader'
@@ -115,7 +115,11 @@ export default merge.smart(baseConfig, {
             }
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
+            options: {
+              data: '@import "vars";',
+              includePaths: [path.resolve(__dirname, '../app/styles')]
+            }
           }
         ]
       },

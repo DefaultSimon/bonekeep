@@ -58,3 +58,22 @@ $margin-values: $padding-values;
 .mr-auto {
   margin-right: auto !important;
 }
+
+// Widths and heights
+.w {
+  &-auto {
+    width: auto;
+  }
+  &-full {
+    width: 100%;
+  }
+}
+
+.h {
+  &-auto {
+    height: auto;
+  }
+  &-full {
+    height: 100%;
+  }
+}

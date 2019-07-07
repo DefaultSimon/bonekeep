@@ -2,7 +2,20 @@
   "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
   "rules": {
     "declaration-empty-line-before": null,
-    "at-rule-no-unknown": null
+    "at-rule-no-unknown": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["export"]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["/^var/"]
+      }
+    ],
+    "no-duplicate-selectors": null
   },
   "ignoreFiles": ["app/semanticui/**"]
 }

@@ -1040,6 +1040,14 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.8.1.tgz#cbafbfe8894c4e3e3c3a9da6774e249ac1f2da8b"
   integrity sha512-GJtx6e55qLEOy2gPOsok2lohjpdWNGrYGtQx0FFT/++K4SYx+Z8LlPHdQBaFzKEwH5IbBB4fNgb//uyZjgYXoA==
 
+"@gilbarbara/react-range-slider@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@gilbarbara/react-range-slider/-/react-range-slider-0.4.3.tgz#4230cdd17dc41f47678a80b7217d5c95767481e5"
+  integrity sha512-E+OY8M66Wlavqv/Ee45pFtuyVmktMDltF3QPUik2YJxD6i7fFcEuWON3bvYlyfLyTUbb3w0SMS1VXC7F+++ahQ==
+  dependencies:
+    blacklist "^1.1.4"
+    deepmerge "^3.2.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1813,6 +1821,11 @@ binary@~0.3.0:
   dependencies:
     buffers "~0.1.1"
     chainsaw "~0.1.0"
+
+blacklist@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/blacklist/-/blacklist-1.1.4.tgz#b2dd09d6177625b2caa69835a37b28995fa9a2f2"
+  integrity sha1-st0J1hd2JbLKppg1o3somV+povI=
 
 block-stream@*:
   version "0.0.9"
@@ -3132,6 +3145,11 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
   integrity sha1-s2nW+128E+7PUk+RsHD+7cNXzzQ=
+
+deepmerge@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+  integrity sha512-6+LuZGU7QCNUnAJyX8cIrlzoEgggTM6B7mm+znKOX4t5ltluT9KLjN6g61ECMS0LTsLW7yDpNoxhix5FZcrIow==
 
 default-gateway@^4.0.1:
   version "4.2.0"

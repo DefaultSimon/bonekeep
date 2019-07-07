@@ -9,12 +9,15 @@
 class Logger {
   name: string;
 
-  constructor(name) {
-    this.name = name;
+  constructor(name: string, noBrackets: boolean = false) {
+    this.name = noBrackets ? name : `[${name}]`;
   }
 
   _parse(message) {
-    return `[${this.name}] ${JSON.stringify(message)}`;
+    // Stringify only if it is an object
+    const value = message instanceof Object ? JSON.stringify(message) : message;
+
+    return `${this.name} ${value}`;
   }
 
   info(message) {
