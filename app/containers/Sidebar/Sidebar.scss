@@ -1,6 +1,61 @@
+// Two parts: actBar and sceneList
 .sidebar {
   width: $sidebar-width;
   min-width: $sidebar-min-width;
   max-width: $sidebar-max-width;
   height: 100%;
+
+  border-right: 2px solid $color-gray;
+}
+
+$act-info-height: 120px;
+$scene-list-height: calc(100% - #{$act-info-height} - 1px);
+
+// Divided into sections: actInfo and icons
+.actBar {
+  height: $act-info-height;
+  padding: 4px 8px;
+
+  $section-info-height: 65%;
+
+  .infoSection {
+    display: flex;
+    flex-direction: column;
+
+    height: $section-info-height;
+
+    .infoAct {
+      font-family: $font-primary;
+      font-size: 1.7rem;
+
+      font-variant: small-caps;
+      margin-bottom: 3px;
+    }
+    .title {
+      font-family: $font-secondary;
+      font-size: 0.9rem;
+    }
+  }
+
+  .iconSection {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-right: 15px;
+    height: (100% - $section-info-height);
+
+    .customButton {
+      border-radius: 10%;
+    }
+  }
+}
+
+.sceneList {
+  height: $scene-list-height;
+
+  .fab {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
 }

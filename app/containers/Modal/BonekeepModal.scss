@@ -1,0 +1,50 @@
+.modal {
+  width: 75%;
+  height: auto;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modalPaper {
+  background-color: $color-white;
+  border-radius: 2px;
+}
+
+$top-bar-height: 48px;
+
+.topBar {
+  width: 100%;
+  height: $top-bar-height;
+
+  background-color: darken($color-white, 4%);
+  border-bottom: 1px solid darken($color-white, 8%);
+
+  // Title on the left and x button on the right
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 1.4rem;
+    font-family: $font-primary;
+
+    margin-left: 10px;
+  }
+
+  .buttonFix {
+    border-radius: 1px;
+  }
+}
+
+.content {
+  width: 100%;
+  height: calc(100% - #{$top-bar-height});
+
+  padding: 12px 8px;
+}

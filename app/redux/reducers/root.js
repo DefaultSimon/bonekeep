@@ -1,11 +1,13 @@
 // @flow
 
 import { combineReducers } from 'redux';
-import sounds from './sounds';
+import act from './act';
+import scenes from './scenes';
 import type { RootReduxState } from '../types/root';
 
 const reducers = {
-  sounds
+  act,
+  scenes
 };
 
 const rootReducer = combineReducers<typeof reducers, RootReduxState>(reducers);

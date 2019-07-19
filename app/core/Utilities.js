@@ -28,7 +28,7 @@ const ID_ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyz';
  * @param length The required ID length.
  * @returns {string}
  */
-export const generateSoundId = (length: number = 8): string => {
+export const generateId = (length: number = 8): string => {
   let id = '';
 
   for (let i = 0; i < length; i++) {

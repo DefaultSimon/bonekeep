@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import Sound from '../Sound/Sound';
 
 type Props = {};
 
@@ -7,9 +8,7 @@ class SceneSoundList extends Component<Props> {
   render() {
     return (
       <div>
-        <span>Sound1</span>
-        <span>Sound2</span>
-        <span>Sound3</span>
+        <Sound />
       </div>
     );
   }

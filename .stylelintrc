@@ -6,7 +6,7 @@
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        "ignorePseudoClasses": ["export"]
+        "ignorePseudoClasses": ["export", "local", "global"]
       }
     ],
     "property-no-unknown": [

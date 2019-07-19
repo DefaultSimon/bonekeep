@@ -2,3 +2,48 @@
   width: $scene-width;
   height: 100%;
 }
+
+$top-panel-height: 18%;
+
+// Top panel, divided into two sections
+.infoSection {
+  height: $top-panel-height;
+
+  background-color: lighten($color-gray, 40%);
+  border-bottom: 1px solid lighten($color-gray, 15%);
+
+  font-family: $font-primary;
+  font-size: 1.4rem;
+}
+
+$title-section-height: 65%;
+$button-section-height: (100% - $title-section-height);
+
+.titleSection {
+  height: $title-section-height;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .type {
+    letter-spacing: 0.1px;
+  }
+  .title {
+    margin-left: 15px;
+  }
+}
+
+.buttonSection {
+  height: $button-section-height;
+
+  display: flex;
+  justify-content: center;
+
+  .customButton {
+    border-radius: 2%;
+    padding: 6px 9px;
+  }
+}
+
+// Actual sounds and stuff, below the top panel

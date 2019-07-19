@@ -1,0 +1,27 @@
+.container {
+  padding: 8px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  .titleInput {
+    width: 25%;
+  }
+
+  .descriptionInput {
+    margin-top: 20px;
+    width: 60%;
+  }
+
+  .doneButton {
+    .buttonIcon {
+      margin-right: 4px;
+    }
+
+    position: absolute;
+
+    bottom: 8px;
+    right: 8px;
+  }
+}

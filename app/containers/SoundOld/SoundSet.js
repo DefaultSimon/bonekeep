@@ -9,7 +9,7 @@ import Sound from './Sound';
 import ItemContainer from '../../components/ItemContainer';
 import FontAwesomeIcon from '../../components/FontAwesomeIcon';
 
-import { generateSoundId } from '../../core/Utilities';
+import { generateId } from '../../core/Utilities';
 
 import { type SoundActionCreator, type SoundId } from '../../redux/types/sound';
 import { mapSoundIdArray } from '../../redux/connect/stateToPropsCommon';
@@ -48,7 +48,7 @@ type Props = {
 class SoundSet extends Component<Props> {
   addNewSound = () => {
     const { DAddSound } = this.props;
-    const newId = generateSoundId();
+    const newId = generateId();
 
     DAddSound(newId);
   };

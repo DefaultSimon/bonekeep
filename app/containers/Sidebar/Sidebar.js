@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import Divider from '@material-ui/core/Divider';
+
 import SidebarActInfo from './SidebarActInfo';
 import SidebarSceneList from './SidebarSceneList';
 
@@ -12,6 +14,7 @@ class Sidebar extends Component<Props> {
     return (
       <section className={styles.sidebar}>
         <SidebarActInfo />
+        <Divider component="hr" />
         <SidebarSceneList />
       </section>
     );

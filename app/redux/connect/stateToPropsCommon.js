@@ -1,8 +1,33 @@
 // @flow
 // Common mapStateToProps functions
+
+/*
 import { getSoundById, getSoundIdArray } from './selectors';
 import type { RootReduxState } from '../types/root';
 import type { SoundId, SoundState } from '../types/sound';
+*/
+
+import type { RootReduxState } from '../types/root';
+
+/**
+ * Combines multiple mapStateToProps functions and returns the resulting combined props
+ * @param stateToProps
+ * @returns {function(RootReduxState, *)}
+ */
+// eslint-disable-next-line import/prefer-default-export
+export const mapMultipleStateToProps = (...stateToProps) => {
+  return (state: RootReduxState, ownProps: *) => {
+    let final = {};
+
+    stateToProps.forEach(fn => {
+      final = { ...final, ...fn(state, ownProps) };
+    });
+
+    return final;
+  };
+};
+
+/*
 
 export const mapSoundById = (
   state: RootReduxState,
@@ -19,12 +44,14 @@ export const mapSoundById = (
 
   return {};
 };
+ */
 
 /**
  * Generate a function that wraps mapSoundById and only returns the required Sound property
  * @param properties  Attribute to return
  * @returns {Function}
  */
+/*
 export const mapSoundPropertyByIdFactory = (
   ...properties: string | Array<string>
 ) => {
@@ -64,3 +91,5 @@ export const mapSoundIdArray = (
     sounds: getSoundIdArray(state, props)
   };
 };
+
+*/
