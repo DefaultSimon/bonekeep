@@ -38,3 +38,45 @@ export const generateId = (length: number = 8): string => {
 
   return id;
 };
+
+/**
+ * Clamps the value between the minimum and maximum
+ * @param value  value to clamp
+ * @param min    minimum to keep
+ * @param max    maximum to keep
+ * @return {number}
+ */
+export const clamp = (value: number, min: number, max: number) => {
+  if (value < min) {
+    return min;
+  }
+  if (value > max) {
+    return max;
+  }
+
+  return value;
+};
+
+// From https://material-ui.com/components/progress/
+/**
+ * Maps non-standard values (e.g. between 35 and 160) to the 0-100 range
+ * @param value  value to normalise
+ * @param min    minimum expected
+ * @param max    maximum expected
+ * @return {number}
+ */
+export const normalise = (value: number, min: number, max: number) =>
+  ((value - min) * 100) / (max - min);
+
+/**
+ * Opposite of `normalise` - takes a value between zero and one and maps it to a custom scale
+ * @param zeroToOneValue
+ * @param newMin
+ * @param newMax
+ * @return {number}
+ */
+export const mapZeroToOneToCustomScale = (
+  zeroToOneValue: number,
+  newMin: number,
+  newMax: number
+) => (newMax - newMin) * zeroToOneValue;

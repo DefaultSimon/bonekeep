@@ -1,17 +1,24 @@
 // @flow
 import React, { Component } from 'react';
 
+import Fab from '@material-ui/core/Fab';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Add from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
+import AddIcon from '@material-ui/icons/Add';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import styles from './Sidebar.scss';
 import modal from './SceneAddModal.scss';
 
@@ -46,6 +53,18 @@ const Scene = (props: SceneProps) => {
     <ListItem button component="div" {...other}>
       {/* eslint-disable-next-line react/destructuring-assignment */}
       <ListItemText>{title}</ListItemText>
+      <ListItemSecondaryAction>
+        <ListItemIcon>
+          <ButtonGroup variant="outlined" size="small">
+            <IconButton>
+              <PlayArrowIcon />
+            </IconButton>
+            <IconButton>
+              <SettingsApplicationsIcon />
+            </IconButton>
+          </ButtonGroup>
+        </ListItemIcon>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };
@@ -136,7 +155,7 @@ class SidebarSceneList extends Component<Props> {
           onClick={this.toggleModal}
           key="fab"
         >
-          <Add />
+          <AddIcon />
         </Fab>
 
         <BonekeepModal

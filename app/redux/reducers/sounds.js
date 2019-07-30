@@ -1,35 +1,37 @@
 // @flow
-import produce from 'immer/dist/immer';
+import produce from 'immer';
+
+import type { SceneId } from '../types/scene';
 import {
-  SET_SOUND_FILE,
-  SET_SOUND_KEYBIND,
-  SET_SOUND_EDITING,
-  SET_SOUND_NAME,
   ADD_SOUND,
   REMOVE_SOUND,
+  SET_SOUND_AUTOPLAY,
+  SET_SOUND_FILE,
+  SET_SOUND_LOOP,
+  SET_SOUND_MUTE_STATUS,
+  SET_SOUND_NAME,
+  SET_SOUND_PLAYING,
   SET_SOUND_VOLUME
 } from '../actions/sounds';
-import rootSoundState, {
-  type SoundState,
-  type SoundAction,
-  type SoundId,
-  type RootSoundsState
-} from '../types/sound';
+import type {
+  RootSoundsState,
+  SoundId,
+  SoundsByIdState,
+  SoundState
+} from '../types/sounds';
+import { defaultRootSoundsState } from '../types/sounds';
 
-/**
- * Ensure that a sound object with the specific soundId exists in soundsById. If it doesn't, create it.
- * @param state    Redux state
- * @param soundId  Sound ID
- * @return Updated state
- */
 function ensureSoundExists(state: RootSoundsState, soundId: SoundId) {
-  if (!Object.prototype.hasOwnProperty.call(state.soundsById, soundId)) {
+  const { soundById } = state;
+
+  if (!Object.prototype.hasOwnProperty.call(soundById, soundId)) {
+    // Doesn't exist, we create a new sound entry
     return {
       ...state,
-      soundsById: {
-        ...state.soundsById,
+      soundById: {
+        ...state.soundById,
         [soundId]: {
-          soundId
+          id: soundId
         }
       }
     };
@@ -38,14 +40,18 @@ function ensureSoundExists(state: RootSoundsState, soundId: SoundId) {
   return state;
 }
 
-/**
- * Modify a specific sound by its ID.
- * @param state     Redux state
- * @param soundId   Sound ID
- * @param producer  Callback that takes a draft object as an argument (draft is in this case the sound object).
- * @returns Updated state
- */
-function modifySoundById(
+function modifyRootSoundsState(
+  state: RootSoundsState,
+  sceneId: SceneId,
+  producer: (draft: SoundsByIdState) => void
+) {
+  return {
+    ...state,
+    soundById: produce(state.soundById, producer)
+  };
+}
+
+function modifySound(
   state: RootSoundsState,
   soundId: SoundId,
   producer: SoundState => void
@@ -54,86 +60,74 @@ function modifySoundById(
 
   return {
     ...ensuredState,
-    soundsById: {
-      ...ensuredState.soundsById,
-      [soundId]: produce(
-        ensuredState.soundsById[soundId],
-        (draft: SoundState): void => producer(draft)
-      )
+    soundById: {
+      ...ensuredState.soundById,
+      [soundId]: produce(ensuredState.soundById[soundId], producer)
     }
   };
 }
 
-/**
- * Remove a sound by its ID.
- * @param state   Redux state
- * @param soundId Sound ID
- * @returns Updated state
- */
-function removeSoundById(state: RootSoundsState, soundId: SoundId) {
-  const updatedSounds = Object.assign({}, state.soundsById);
-  delete updatedSounds[soundId];
-
-  return {
-    ...state,
-    soundsById: {
-      ...updatedSounds
-    }
-  };
-}
-
-/**
- * Main sound reducer
- */
 export default function sounds(
-  state: RootSoundsState = rootSoundState,
-  action: SoundAction
+  state: RootSoundsState = defaultRootSoundsState,
+  action: *
 ) {
+  // This is a reducer inside another reducer, so we use subtypes
   switch (action.type) {
     case ADD_SOUND: {
-      const { soundId }: SoundAction = action;
+      const { soundId } = action;
 
-      // Creates the sound object if it doesn't already exist
       return ensureSoundExists(state, soundId);
-    }
-    case SET_SOUND_FILE: {
-      const { soundId, filename } = action;
-
-      return modifySoundById(state, soundId, draft => {
-        draft.filename = filename;
-      });
-    }
-    case SET_SOUND_KEYBIND: {
-      const { soundId, keybind } = action;
-
-      return modifySoundById(state, soundId, draft => {
-        draft.keybind = keybind;
-      });
-    }
-    case SET_SOUND_EDITING: {
-      const { soundId, isEditing } = action;
-
-      return modifySoundById(state, soundId, draft => {
-        draft.isEditing = isEditing;
-      });
-    }
-    case SET_SOUND_NAME: {
-      const { soundId, name } = action;
-
-      return modifySoundById(state, soundId, draft => {
-        draft.name = name;
-      });
     }
     case REMOVE_SOUND: {
       const { soundId } = action;
-
-      return removeSoundById(state, soundId);
+      return modifyRootSoundsState(
+        state,
+        soundId,
+        (draft: { [SoundId]: SoundState }) => {
+          delete draft[soundId];
+        }
+      );
+    }
+    case SET_SOUND_NAME: {
+      const { soundId, name } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft.name = name;
+      });
+    }
+    case SET_SOUND_FILE: {
+      const { soundId, file } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft.file = file;
+      });
+    }
+    case SET_SOUND_MUTE_STATUS: {
+      const { soundId, mute } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft.muted = mute;
+      });
+    }
+    case SET_SOUND_AUTOPLAY: {
+      const { soundId, autoplay } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft.autoplay = autoplay;
+      });
+    }
+    case SET_SOUND_PLAYING: {
+      const { soundId, playing } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft._playing = playing;
+      });
     }
     case SET_SOUND_VOLUME: {
       const { soundId, volume } = action;
-
-      return modifySoundById(state, soundId, draft => {
+      return modifySound(state, soundId, (draft: SoundState) => {
         draft.volume = volume;
+      });
+    }
+    case SET_SOUND_LOOP: {
+      const { soundId, loop } = action;
+      return modifySound(state, soundId, (draft: SoundState) => {
+        draft.loop = loop;
       });
     }
     default: {

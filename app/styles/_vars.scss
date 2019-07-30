@@ -22,6 +22,10 @@ $color-black: #212121;
 $color-gray: lighten($color-black, 38%);
 $color-transparent: transparentize($color-black, 0.6);
 
+$color-red: #f44336;
+$color-green: #4caf50;
+$color-blue: #2196f3;
+
 // NOTE: all exported variables should be prefixed with 'var' to allow for stylelint whitelisting
 // example: ePrimary
 //noinspection ALL
@@ -83,3 +87,8 @@ $sidebar-max-width: 300px;
 $sidebar-min-width: 180px;
 
 $scene-width: (100% - $sidebar-width);
+// For calculating how much space the sounds can take up
+$scene-sound-container-padding: 5px;
+
+// Other variables
+@import 'modules/animations';

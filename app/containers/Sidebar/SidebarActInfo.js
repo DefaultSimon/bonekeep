@@ -18,14 +18,14 @@ import modal from './ActEditModal.scss';
 import Logger from '../../core/Logger';
 
 import { renameAct, setActDescription } from '../../redux/actions/act';
-import { mapAct } from '../../redux/connect/act';
 import type { RootActState } from '../../redux/types/act';
 import BonekeepModal from '../Modal/BonekeepModal';
+import { mapAct } from '../../redux/connect/act';
 
 const log = new Logger('SidebarActInfo');
 
 type Props = {
-  ...RootActState,
+  act: RootActState,
   DRenameAct: typeof renameAct,
   DSetActDescription: typeof setActDescription
 };
@@ -53,7 +53,6 @@ class SidebarActInfo extends Component<Props> {
     // check if closing
     if (modalIsOpen) {
       log.debug('Committing title and description changes...');
-      console.log(modalTitle, modalDescription);
 
       DRenameAct(modalTitle);
       DSetActDescription(modalDescription);
@@ -80,7 +79,9 @@ class SidebarActInfo extends Component<Props> {
 
   render() {
     const { modalIsOpen, modalTitle, modalDescription } = this.state;
-    const { title = null } = this.props;
+    const {
+      act: { title }
+    } = this.props;
 
     return (
       <div className={styles.actBar}>

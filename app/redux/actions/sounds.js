@@ -1,60 +1,104 @@
 // @flow
-// import { type SoundId, type SoundAction } from '../types/sound';
+// Sound actions
+import type { SoundId } from '../types/sounds';
+import type { SceneId } from '../types/scene';
 
-/* export const ADD_SOUND: string = 'ADD_SOUND';
-export const SET_SOUND_FILE: string = 'UPDATE_SOUND_FILE';
-export const SET_SOUND_KEYBIND: string = 'UPDATE_SOUND_KEYBIND';
-export const SET_SOUND_EDITING: string = 'SET_SOUND_EDITING';
-export const SET_SOUND_NAME: string = 'SET_SOUND_NAME';
+// Types
+export const ADD_SOUND: string = 'ADD_SOUND';
 export const REMOVE_SOUND: string = 'REMOVE_SOUND';
+export const SET_SOUND_NAME: string = 'SET_SOUND_NAME';
+export const SET_SOUND_FILE: string = 'SET_SOUND_FILE';
+export const SET_SOUND_MUTE_STATUS: string = 'SET_SOUND_MUTE';
+export const SET_SOUND_AUTOPLAY: string = 'SET_SOUND_AUTOPLAY';
+export const SET_SOUND_PLAYING: string = 'SET_SOUND_PLAYING';
 export const SET_SOUND_VOLUME: string = 'SET_SOUND_VOLUME';
-*/
+export const SET_SOUND_LOOP: string = 'SET_SOUND_LOOP';
 
-/*
-export const addSound = (soundId: SoundId): SoundAction => ({
+export const addSound = (soundId: SoundId, sceneId: SceneId) => ({
   type: ADD_SOUND,
-  soundId
+  soundId,
+  sceneId
+});
+
+export const removeSound = (soundId: SoundId, sceneId: SceneId) => ({
+  type: REMOVE_SOUND,
+  soundId,
+  sceneId
+});
+
+export const setSoundName = (
+  soundId: SoundId,
+  sceneId: SceneId,
+  name: string
+) => ({
+  type: SET_SOUND_NAME,
+  soundId,
+  sceneId,
+  name
 });
 
 export const setSoundFile = (
   soundId: SoundId,
-  filename: string
-): SoundAction => ({
+  sceneId: SceneId,
+  file: string
+) => ({
   type: SET_SOUND_FILE,
   soundId,
-  filename
+  sceneId,
+  file
 });
 
-export const setSoundKeybind = (
+export const setSoundMuteStatus = (
   soundId: SoundId,
-  keybind: string
-): SoundAction => ({
-  type: SET_SOUND_KEYBIND,
+  sceneId: SceneId,
+  mute: boolean
+) => ({
+  type: SET_SOUND_MUTE_STATUS,
   soundId,
-  keybind
+  sceneId,
+  mute
 });
 
-export const setSoundEditing = (soundId: SoundId, isEditing: boolean) => ({
-  type: SET_SOUND_EDITING,
+export const setSoundAutoplay = (
+  soundId: SoundId,
+  sceneId: SceneId,
+  autoplay: boolean
+) => ({
+  type: SET_SOUND_AUTOPLAY,
   soundId,
-  isEditing
+  sceneId,
+  autoplay
 });
 
-export const setSoundName = (soundId: SoundId, name: string) => ({
-  type: SET_SOUND_NAME,
+export const setSoundPlaying = (
+  soundId: SoundId,
+  sceneId: SceneId,
+  playing: boolean
+) => ({
+  type: SET_SOUND_PLAYING,
   soundId,
-  name
+  sceneId,
+  playing
 });
 
-export const removeSound = (soundId: SoundId) => ({
-  type: REMOVE_SOUND,
-  soundId
-});
-
-export const setSoundVolume = (soundId: SoundId, volume: number) => ({
+export const setSoundVolume = (
+  soundId: SoundId,
+  sceneId: SceneId,
+  volume: number
+) => ({
   type: SET_SOUND_VOLUME,
   soundId,
-  // volume should be between 0 and 1
+  sceneId,
   volume
 });
-*/
+
+export const setSoundLoop = (
+  soundId: SoundId,
+  sceneId: SceneId,
+  loop: boolean
+) => ({
+  type: SET_SOUND_LOOP,
+  soundId,
+  sceneId,
+  loop
+});

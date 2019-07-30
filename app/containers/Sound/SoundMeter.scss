@@ -1,0 +1,106 @@
+$meter-height: 92px;
+$meter-width: 90%;
+$meter-horizontal-margin: ((100% - $meter-width) / 2);
+
+$min-volume: #388e3c;
+$min-volume-size: 8px;
+$low-volume: #4caf50;
+$low-volume-size: $min-volume-size + 48px;
+$med-volume: #ff5722;
+$med-volume-size: $low-volume-size + 22px;
+$high-volume: #e53935;
+$high-volume-size: $med-volume-size + 8px;
+
+$meter-vertical-spacing: 3px;
+$meter-horizontal-spacing: 3px;
+
+$meter-color: $color-white;
+$volume-background-color: lighten($color-black, 15%);
+$handle-color: darken($volume-background-color, 5%);
+
+$total-height-available: $meter-height - 2 * $meter-vertical-spacing;
+
+:export {
+  varTotalHeight: $total-height-available;
+}
+
+.volumeMeter {
+  height: $meter-height;
+  width: $meter-width;
+  margin: 0 $meter-horizontal-margin;
+  background-color: $meter-color;
+  border-radius: 2px;
+
+  position: relative;
+
+  $inner-height: calc(100% - #{$meter-vertical-spacing * 2});
+  $inner-width: calc(100% - #{$meter-horizontal-spacing * 2});
+
+  .meter {
+    height: $inner-height;
+    width: $inner-width;
+    margin: $meter-vertical-spacing $meter-horizontal-spacing;
+    float: left;
+
+    background: linear-gradient(
+      to top,
+      $min-volume 0 $min-volume-size,
+      $low-volume 0 $low-volume-size,
+      $med-volume 0 $med-volume-size,
+      $high-volume 0 $high-volume-size
+    );
+  }
+
+  .overlay {
+    position: absolute;
+    top: $meter-horizontal-spacing;
+    left: $meter-horizontal-spacing;
+    // Set height between 0 and $inner-height to show volume
+    height: $total-height-available;
+    width: $inner-width;
+    background-color: $volume-background-color;
+
+    transition: 0.1s ease-in;
+  }
+
+  .grid {
+    position: absolute;
+
+    height: $inner-height;
+    width: $inner-width;
+    margin: $meter-vertical-spacing $meter-horizontal-spacing;
+    // Fixes vertical spacing issue
+    top: 1px;
+
+    background: repeating-linear-gradient(
+      to top,
+      $meter-color 0 2px,
+      transparent 0 8px
+    );
+  }
+
+  .handleContainer {
+    $handle-overflow: 1px;
+
+    width: calc(100% + #{2 * $handle-overflow});
+    height: 10px;
+    transform: translateY(-2px);
+
+    position: absolute;
+    left: -$handle-overflow;
+    cursor: pointer;
+    top: 0;
+  }
+
+  .handle {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+
+    position: absolute;
+    top: 2px;
+    pointer-events: none;
+
+    background-color: $handle-color;
+  }
+}

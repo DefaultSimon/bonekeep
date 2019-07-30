@@ -1,7 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrow from '@material-ui/icons/PlayArrow';
@@ -9,17 +7,16 @@ import Stop from '@material-ui/icons/Stop';
 import SettingsApplications from '@material-ui/icons/SettingsApplications';
 
 import styles from './Scene.scss';
-import { mapActiveScene } from '../../redux/connect/scene';
 import type { SceneState } from '../../redux/types/scene';
 
 type Props = {
-  activeScene: SceneState
+  scene: SceneState
 };
 
 class SceneInfo extends Component<Props> {
   render() {
-    const { activeScene = {} } = this.props;
-    const sceneTitle = activeScene.title || '';
+    const { scene } = this.props;
+    const sceneTitle = scene.title || '';
 
     return (
       <div className={styles.infoSection}>
@@ -47,11 +44,4 @@ class SceneInfo extends Component<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch);
-};
-
-export default connect(
-  mapActiveScene,
-  mapDispatchToProps
-)(SceneInfo);
+export default SceneInfo;

@@ -47,3 +47,16 @@ $button-section-height: (100% - $title-section-height);
 }
 
 // Actual sounds and stuff, below the top panel
+.soundContainer {
+  padding: $scene-sound-container-padding;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .fab {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
+}

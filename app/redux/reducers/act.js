@@ -10,7 +10,7 @@ export default function act(state: RootActState = defaultActState, action: *) {
   switch (action.type) {
     case RENAME_ACT:
       return produce(state, (draft: RootActState) => {
-        draft.title = action.name;
+        draft.title = action.newName;
       });
     case SET_ACT_DESCRIPTION:
       return produce(state, (draft: RootActState) => {

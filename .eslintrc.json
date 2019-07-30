@@ -10,7 +10,8 @@
   "rules": {
     "react/no-access-state-in-setstate": null,
     "jsx-a11y/click-events-have-key-events": null,
-    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-underscore-dangle": "off",
+    "no-undef": "off",
     "no-param-reassign": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "flowtype/object-type-delimiter": "semicolon",

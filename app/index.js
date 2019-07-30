@@ -8,6 +8,9 @@ import Root from './containers/Root';
 // Import custom stylesheets
 import './styles/main.scss';
 
+// TODO optimize
+// https://github.com/maicki/why-did-you-update
+
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 
 render(
