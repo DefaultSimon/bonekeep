@@ -29,7 +29,15 @@ export default class Sound {
     if (muted) {
       this.mute();
     }
+
+    this.setupHowlerListeners();
   }
+
+  // LISTENERS
+  setupHowlerListeners = () => {
+    this.howler.on('play', () => this.emitter.emitEvent('play'));
+    this.howler.on('stop', () => this.emitter.emitEvent('stop'));
+  };
 
   // SETUP FUNCTIONS AND OTHER
   // TODO empty for now
@@ -37,12 +45,12 @@ export default class Sound {
   // COMMON
   play = () => {
     this.howler.play();
-    this.emitter.emitEvent('play');
+    // this.emitter.emitEvent('play');
   };
 
   stop = () => {
     this.howler.stop();
-    this.emitter.emitEvent('stop');
+    // this.emitter.emitEvent('stop');
   };
 
   mute = () => {

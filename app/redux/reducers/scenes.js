@@ -3,7 +3,11 @@ import produce from 'immer/dist/immer';
 
 import type { RootScenesState, SceneId, SceneState } from '../types/scene';
 import { defaultScenesState } from '../types/scene';
-import { ADD_SCENE, SET_ACTIVE_SCENE } from '../actions/scene';
+import {
+  ADD_SCENE,
+  SET_ACTIVE_SCENE,
+  TOGGLE_SCENE_ADD_MODAL
+} from '../actions/scene';
 import { ADD_SOUND } from '../actions/sounds';
 
 function ensureSceneExists(state: RootScenesState, sceneId: SceneId) {
@@ -57,6 +61,10 @@ export default function scenes(
         const { sceneId } = action;
 
         draft.loadedSceneId = sceneId;
+      });
+    case TOGGLE_SCENE_ADD_MODAL:
+      return produce(state, (draft: RootScenesState) => {
+        draft.addingScene = !draft.addingScene;
       });
     // Sound-related
     case ADD_SOUND: {

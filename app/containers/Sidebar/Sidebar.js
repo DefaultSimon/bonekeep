@@ -2,21 +2,20 @@
 import React, { Component } from 'react';
 import Divider from '@material-ui/core/Divider';
 
-import SidebarActInfo from './SidebarActInfo';
-import SidebarSceneList from './SidebarSceneList';
+import SidebarAct from './SidebarAct';
+import SidebarScenes from './SidebarScenes';
 
 import styles from './Sidebar.scss';
+import ItemContainer from '../../components/ItemContainer';
 
-type Props = {};
-
-class Sidebar extends Component<Props> {
+class Sidebar extends Component {
   render() {
     return (
-      <section className={styles.sidebar}>
-        <SidebarActInfo />
+      <ItemContainer component="section" className={styles.sidebar}>
+        <SidebarAct />
         <Divider component="hr" />
-        <SidebarSceneList />
-      </section>
+        <SidebarScenes />
+      </ItemContainer>
     );
   }
 }

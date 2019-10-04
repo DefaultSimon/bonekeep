@@ -26,6 +26,7 @@ import type { SoundId, SoundState } from '../../redux/types/sounds';
 import type { SceneId } from '../../redux/types/scene';
 import SoundEditModal from './SoundEditModal';
 import SoundMeter from './SoundMeter';
+import SoundProgressBar from './SoundProgressBar';
 
 type ActiveToggleProps = {
   active?: boolean
@@ -41,6 +42,7 @@ const MuteToggle = (props: ActiveToggleProps) => {
       className={classNames(
         styles.muteToggle,
         styles.minWidthFix,
+        styles.buttonStyleBoxShadow,
         active ? styles.active : ''
       )}
       disableRipple
@@ -64,6 +66,7 @@ const AutoplayToggle = (props: ActiveToggleProps) => {
       className={classNames(
         styles.autoplayToggle,
         styles.minWidthFix,
+        styles.buttonStyleBoxShadow,
         active ? styles.active : ''
       )}
       disableRipple
@@ -87,7 +90,11 @@ const PlayToggle = (props: PlayToggleProps) => {
   return (
     <IconButton
       component="div"
-      className={classNames(styles.playToggle, playing ? styles.active : '')}
+      className={classNames(
+        styles.playToggle,
+        styles.buttonStyleBoxShadow,
+        playing ? styles.active : ''
+      )}
       size="small"
       disableRipple
       {...other}
@@ -104,7 +111,7 @@ const SettingsToggle = props => {
   return (
     <IconButton
       component="div"
-      className={classNames(styles.settingsToggle)}
+      className={classNames(styles.settingsToggle, styles.buttonStyleBoxShadow)}
       size="small"
       disableRipple
       {...props}
@@ -179,15 +186,15 @@ class Sound extends Component<Props> {
 
     // Only dispatch if changed
     if (newName !== name) {
-      console.log(`Name changed: ${newName}, ${name}`);
+      console.log(`Name changed from ${name} to ${newName}`);
       DSetSoundName(soundId, sceneId, newName);
     }
     if (newFile !== file && newFile !== '') {
-      console.log(`File changed: ${newFile}, ${file}`);
+      console.log(`File changed from ${file} to ${newFile}`);
       DSetSoundFile(soundId, sceneId, newFile);
     }
     if (newLoop !== loop) {
-      console.log(`Loop changed: ${newLoop}, ${loop}`);
+      console.log(`Loop changed to ${newLoop}`);
       DSetSoundLoop(soundId, sceneId, newLoop);
     }
   };
@@ -222,9 +229,8 @@ class Sound extends Component<Props> {
             <PlayToggle onClick={this.togglePlaying} playing={_playing} />
             <SettingsToggle onClick={this.toggleModal} />
           </div>
-          <div className={styles.volume}>
-            <SoundMeter soundId={soundId} sceneId={sceneId} />
-          </div>
+          <SoundMeter soundId={soundId} sceneId={sceneId} />
+          <SoundProgressBar soundId={soundId} />
         </div>
 
         <SoundEditModal

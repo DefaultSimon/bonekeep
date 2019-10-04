@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import throttle from 'lodash.throttle';
+
 import styles from './SoundMeter.scss';
+import mainStyles from './Sound.scss';
+
 import { mapZeroToOneToCustomScale, normalise } from '../../core/Utilities';
-import soundStore from '../../core/sound/SoundStore';
 import type { SoundId } from '../../redux/types/sounds';
-import getLogger from '../../core/Logger';
 import { setSoundVolume } from '../../redux/actions/sounds';
 
-const log = getLogger('SoundMeter');
 const maxVolumeHeight = parseInt(styles.varTotalHeight, 10);
 
 type Props = {
@@ -43,8 +43,8 @@ class SoundMeter extends Component<Props> {
   };
 
   setupSoundListeners = () => {
-    const { soundId } = this.props;
-
+    // const { soundId } = this.props;
+    /*
     soundStore.subscribeToSoundCreation(soundId, obj => {
       this.soundInstance = obj;
 
@@ -84,6 +84,8 @@ class SoundMeter extends Component<Props> {
         this.frequencyData = null;
       }
     });
+
+     */
   };
 
   setupHandleListeners = () => {
@@ -146,6 +148,14 @@ class SoundMeter extends Component<Props> {
       },
       false
     );
+
+    this.volumeMeterRef.addEventListener(
+      'mouseleave',
+      () => {
+        active = false;
+      },
+      false
+    );
   };
 
   handleAnimationFrame = () => {
@@ -203,27 +213,29 @@ class SoundMeter extends Component<Props> {
 
   render() {
     return (
-      <div
-        className={styles.volumeMeter}
-        ref={el => {
-          this.volumeMeterRef = el;
-        }}
-      >
-        <div className={styles.meter} />
+      <div className={mainStyles.volume}>
         <div
-          className={styles.overlay}
-          ref={i => {
-            this.animRef = i;
-          }}
-        />
-        <div className={styles.grid} />
-        <div
-          className={styles.handleContainer}
+          className={styles.volumeMeter}
           ref={el => {
-            this.handleContainerRef = el;
+            this.volumeMeterRef = el;
           }}
         >
-          <div className={styles.handle} />
+          <div className={styles.meter} />
+          <div
+            className={styles.overlay}
+            ref={i => {
+              this.animRef = i;
+            }}
+          />
+          <div className={styles.grid} />
+          <div
+            className={styles.handleContainer}
+            ref={el => {
+              this.handleContainerRef = el;
+            }}
+          >
+            <div className={styles.handle} />
+          </div>
         </div>
       </div>
     );

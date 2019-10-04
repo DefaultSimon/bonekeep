@@ -1,0 +1,13 @@
+@import '../SidebarVars.scss';
+
+.iconSection {
+  display: flex;
+  justify-content: flex-end;
+
+  padding-right: 15px;
+  height: (100% - $section-info-height);
+
+  .customButton {
+    border-radius: 10%;
+  }
+}

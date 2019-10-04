@@ -195,6 +195,12 @@ export default merge.smart(baseConfig, {
     ]
   },
 
+  resolve: {
+    alias: {
+      '@hot-loader/react-dom': '^16.9.0'
+    }
+  },
+
   plugins: [
     requiredByDLLConfig
       ? null

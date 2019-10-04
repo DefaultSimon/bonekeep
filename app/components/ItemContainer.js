@@ -5,29 +5,32 @@ import classNames from 'classnames';
 type Props = {
   children: Node,
   className?: string | null,
-  bgColor?: string | null
+  bgColor?: string | null,
+  component?: string | Node
 };
 
 /**
  * General-purpose (stateless) component
  */
 function ItemContainer(props: Props) {
-  const { children, className, bgColor, ...other } = props;
+  const { children, className, bgColor, component, ...other } = props;
   const classes = classNames(
     className,
     bgColor ? `bg-${bgColor.toString()}` : null
   );
+  const CustomComponent = component;
 
   return (
-    <div className={classes} {...other}>
+    <CustomComponent className={classes} {...other}>
       {children}
-    </div>
+    </CustomComponent>
   );
 }
 
 ItemContainer.defaultProps = {
   className: null,
-  bgColor: null
+  bgColor: null,
+  component: 'div'
 };
 
 export default ItemContainer;

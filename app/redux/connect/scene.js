@@ -44,3 +44,13 @@ export const mapActiveScene = (
     activeScene: scenes.sceneById[activeSceneId]
   };
 };
+
+export const mapAddingScene = (
+  state: RootReduxState
+): { addingScene: boolean } => {
+  const scenes = getScenes(state);
+
+  return {
+    addingScene: scenes.addingScene
+  };
+};

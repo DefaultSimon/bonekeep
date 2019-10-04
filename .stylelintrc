@@ -16,6 +16,5 @@
       }
     ],
     "no-duplicate-selectors": null
-  },
-  "ignoreFiles": ["app/semanticui/**"]
+  }
 }

@@ -1,0 +1,20 @@
+@import '../SidebarVars.scss';
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+
+  height: $section-info-height;
+
+  .infoAct {
+    font-family: $font-primary;
+    font-size: 1.7rem;
+
+    font-variant: small-caps;
+    margin-bottom: 3px;
+  }
+  .title {
+    font-family: $font-secondary;
+    font-size: 0.9rem;
+  }
+}
