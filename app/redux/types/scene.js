@@ -28,6 +28,6 @@ export const defaultSceneByIdState = {};
 
 export const defaultScenesState = {
   sceneById: defaultSceneByIdState,
-  loadedSceneId: 0,
+  loadedSceneId: null,
   addingScene: false
 };

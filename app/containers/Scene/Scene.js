@@ -9,15 +9,28 @@ import { mapActiveScene } from '../../redux/connect/scene';
 import type { SceneState } from '../../redux/types/scene';
 
 type Props = {
-  activeScene: SceneState
+  activeScene: SceneState | null
 };
 
 class Scene extends Component<Props> {
   render() {
-    const { activeScene = {} } = this.props;
+    const { activeScene = null } = this.props;
+    // No scene is loaded, show the "No active scene" message
+    if (activeScene === null) {
+      return (
+        <section className={styles.scene}>
+          <div className={styles.noActiveSceneOverlay}>
+            <span>No active scene...</span>
+          </div>
+        </section>
+      );
+    }
+
+    // Otherwise, show the current scene
     const sounds = activeScene.sounds || [];
     const sceneId = activeScene.id;
 
+    // TODO when adding a sound/changing the scene, the entire SceneList and Scene rerender
     return (
       <section className={styles.scene}>
         <SceneInfo scene={activeScene} />

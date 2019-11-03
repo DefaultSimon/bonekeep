@@ -1,9 +1,30 @@
+$top-panel-height: 18%;
+
+$title-section-height: 65%;
+$button-section-height: (100% - $title-section-height);
+
 .scene {
   width: $scene-width;
   height: 100%;
+  position: relative;
 }
 
-$top-panel-height: 18%;
+// Displayed when no scene is selected
+.noActiveSceneOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  background-color: mix($color-black, $color-white, 10%);
+
+  span {
+    font-family: $font-secondary;
+    letter-spacing: 0.2px;
+    font-size: 1.35rem;
+  }
+}
 
 // Top panel, divided into two sections
 .infoSection {
@@ -15,9 +36,6 @@ $top-panel-height: 18%;
   font-family: $font-primary;
   font-size: 1.4rem;
 }
-
-$title-section-height: 65%;
-$button-section-height: (100% - $title-section-height);
 
 .titleSection {
   height: $title-section-height;

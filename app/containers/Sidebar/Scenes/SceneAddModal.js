@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import modal from './SceneAddModal.scss';
@@ -13,6 +12,7 @@ import BonekeepModal from '../../Modal/BonekeepModal';
 import { generateId } from '../../../core/Utilities';
 import { mapAddingScene } from '../../../redux/connect/scene';
 import { addScene, toggleSceneAddModal } from '../../../redux/actions/scene';
+import BonekeepTextField from '../../TextField/BonekeepTextField';
 
 const log = getLogger('SceneAddModal');
 
@@ -26,59 +26,41 @@ class SceneAddModal extends Component<Props> {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentSceneTitle: ''
-    };
+    this.titleInputRef = React.createRef();
   }
 
   addNewScene = () => {
     const { DAddScene, DToggleSceneAddModal } = this.props;
-    const { currentSceneTitle } = this.state;
 
+    // Get scene title from input and generate an ID for the new scene
+    const currentTitle = this.titleInputRef.current.getCurrentValue();
     const id = generateId();
 
-    DAddScene(id, currentSceneTitle);
-    log.debug(
-      `Created new Scene with id ${id} and title '${currentSceneTitle}'`
-    );
+    DAddScene(id, currentTitle);
+    log.debug(`Created new Scene with id ${id} and title '${currentTitle}'`);
 
     // Reset scene title
-    this.setState(prevState => ({
-      ...prevState,
-      currentSceneTitle: ''
-    }));
-
-    // When added, close the modal
+    this.titleInputRef.current.updateCurrentValue('');
+    // Close the modal
     DToggleSceneAddModal();
   };
 
-  handleTitleChange = (event: *) => {
-    const val = event.target.value;
-
-    this.setState(prevState => ({
-      ...prevState,
-      currentSceneTitle: val
-    }));
-  };
-
   render() {
-    const { addingScene: modalIsOpen } = this.props;
-    const { currentSceneTitle } = this.state;
+    const { addingScene: modalIsOpen, DToggleSceneAddModal } = this.props;
 
     return (
       <BonekeepModal
-        onCloseRequested={this.toggleModal}
+        onCloseRequested={DToggleSceneAddModal}
         open={modalIsOpen}
         title="Add Scene"
         contentClass={modal.addSceneModal}
       >
         {/* TODO focus on initial open */}
-        <TextField
-          label="Scene Title"
-          onChange={this.handleTitleChange}
-          component="div"
-          value={currentSceneTitle}
+        <BonekeepTextField
           className={modal.textField}
+          label="Scene Title"
+          component="div"
+          ref={this.titleInputRef}
         />
         <Button
           variant="contained"
